@@ -1,12 +1,12 @@
-{# プロジェクト。featured=true は左の罫線で立てる（2件が目安） #}
+{# 実績（projects）。featured=true は短いラベル（既定: 課題ありの資料は「適合」、汎用は「注目」）で立てる。2件が目安 #}
 {% if talent.projects and talent.projects.length %}
 <div class="section">
-  <div class="sec-head"><h2>プロジェクト</h2></div>
+  <div class="sec-head"><h2>{{ brand.labels.projectsTitle }}</h2></div>
   <div class="projects">
     {% for p in talent.projects %}
     <div class="proj{% if p.featured %} featured{% endif %}">
       <div class="ph">
-        <span class="pname">{% if p.featured %}<span class="ptag">代表</span>{% endif %}{{ p.name }}</span>
+        <span class="pname">{% if p.featured %}<span class="ptag">{{ talent.featuredLabel }}</span>{% endif %}{{ p.name }}</span>
         {% if p.badge %}<span class="badge">{{ p.badge }}</span>{% endif %}
       </div>
       {% if p.subtitle %}<div class="sub">{{ p.subtitle }}</div>{% endif %}

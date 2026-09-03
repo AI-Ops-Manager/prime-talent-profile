@@ -120,7 +120,7 @@
           "subtitle": { "type": ["string", "null"], "description": "一言の説明" },
           "body": { "type": ["string", "null"], "description": "何を、どこまで担ったか" },
           "tools": { "type": ["string", "null"], "description": "主な利用ツール（例: Claude Code・GitHub・Vercel）" },
-          "featured": { "type": "boolean", "default": false, "description": "代表的なものを true にする（2件が目安）" }
+          "featured": { "type": "boolean", "default": false, "description": "課題に合う・見せたい実績を true にする（2件が目安）。資料では短いラベル（既定: 課題ありは「適合」、汎用は「注目」）が付く" }
         }
       }
     },

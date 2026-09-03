@@ -69,7 +69,7 @@ slug は `英数字 _ - .` だけ（`..` を含まない）。`_` で始まる s
     logoHtml,          // '<img class="logo-img" src="data:...">' / null
     logoHeight,        // "7mm"
     colors: { accent, accentDark, accentText, tint, ink, body, muted, hairline, paper },
-    labels: { docType, docTitle, confidential, blindNote, ctaLead, ctaBody, footer },
+    labels: { docType, docTitle, confidential, blindNote, ctaLead, ctaBody, fitTitle, pointsTitle, projectsTitle, featuredLabel, footer },
     typography: { webFonts: true },
     theme: "letterhead",   // body の class になる。template/themes/<theme>.css が基本CSSに足される
     defaults: { ... }  // talent.mjs が既定値の解決に使う。テンプレートは参照しない
@@ -86,6 +86,7 @@ slug は `英数字 _ - .` だけ（`..` を含まない）。`_` で始まる s
     career: [ { period, org, title, note, headline, body } ],
     skills: [ { group, level, items } ],
     projects: [ { name, badge, subtitle, body, tools, featured } ],
+    featuredLabel: "適合",   // brand.labels.featuredLabel が無ければ fit あり=適合／無し=注目
     warnings: [ "写真 photo.jpg が見つかりません（イニシャル枠で出力します）" ]   // テンプレートは参照しない
   },
   pages: [ ["hero","facts","overview","coverage"], ["career","skills"], ["projects","cta"] ],

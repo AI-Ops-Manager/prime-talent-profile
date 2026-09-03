@@ -159,6 +159,8 @@ export function loadTalent(slug, brand) {
   const pointsHtml = (raw.points ?? []).map((p) => inline(p));
   const pitch = fitHtml.length > 0 || pointsHtml.length > 0;
   const pages = raw.layout?.pages ?? defaultPages({ pitch, hasProjects: projects.length > 0 });
+  // 代表的な実績に付ける短いラベル。課題（fit）を書いた資料では「その課題に合う」の意味で「適合」、汎用は「注目」
+  const featuredLabel = brand.labels?.featuredLabel ?? (pitch ? "適合" : "注目");
 
   return {
     slug,
@@ -181,6 +183,7 @@ export function loadTalent(slug, brand) {
     career,
     skills,
     projects,
+    featuredLabel,
     // render.mjsが標準出力・reportに使う。テンプレートのtalent.*からは参照しない
     warnings,
     // render.mjsがトップレベルのpagesへ引き上げる。テンプレートのtalent.*からは参照しない

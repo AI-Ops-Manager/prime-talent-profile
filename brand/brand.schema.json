@@ -66,7 +66,7 @@
         "webFonts": {
           "type": "boolean",
           "default": true,
-          "description": "true なら Google Fonts（Noto Sans JP / EB Garamond）を読み込み、環境差を無くす。false ならOSのフォントだけで組む"
+          "description": "true なら Google Fonts（Noto Sans JP）を読み込み、環境差を無くす。false ならOSのフォントだけで組む"
         }
       }
     },
@@ -82,6 +82,8 @@
         "ctaBody": { "type": "string", "description": "最終ページ末尾の案内本文" },
         "fitTitle": { "type": "string", "description": "課題の節の見出し。既定「解決できる課題」（talent.json に fit があるときだけ出る）" },
         "pointsTitle": { "type": "string", "description": "推薦理由の節の見出し。既定「推薦理由」（talent.json に points があるときだけ出る）" },
+        "projectsTitle": { "type": "string", "description": "実績の節の見出し。既定「実績」" },
+        "featuredLabel": { "type": ["string", "null"], "description": "代表的な実績（featured）に付ける短いラベル。未指定なら、課題（fit）を書いた資料は「適合」、汎用は「注目」" },
         "footer": { "type": "string", "description": "フッター左の表記。省略時は「{brandName}（{companyName}）」" }
       }
     },

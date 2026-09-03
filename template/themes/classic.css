@@ -1,4 +1,4 @@
-/* classic: 面は残すが色を抜く。青は見出しの印・代表プロジェクトの左罫線・案内の左罫線だけ */
+/* classic: 面は残すが色を抜く。青は見出しの印・ラベル付き実績の左罫線・案内の左罫線だけ */
 body.theme-classic .tag.status { background: transparent; border-color: var(--ink); color: var(--ink); }
 body.theme-classic .role { color: var(--ink); font-weight: 600; }
 body.theme-classic .photo { border-radius: 1mm; }

@@ -18,6 +18,8 @@ const LABEL_DEFAULTS = {
     "実名・詳細プロフィール・ポートフォリオの開示、ご本人とのオンライン面談（30分程度）をセッティングします。稼働量・関与範囲・条件は柔軟にご相談いただけます。",
   fitTitle: "解決できる課題",
   pointsTitle: "推薦理由",
+  projectsTitle: "実績",
+  featuredLabel: null, // null なら talent 側で決める（課題ありの資料=適合／汎用=注目）
 };
 
 const DEFAULTS_DEFAULTS = {
@@ -159,6 +161,8 @@ export function loadBrand(file) {
     ctaBody: raw.labels?.ctaBody ?? LABEL_DEFAULTS.ctaBody,
     fitTitle: raw.labels?.fitTitle ?? LABEL_DEFAULTS.fitTitle,
     pointsTitle: raw.labels?.pointsTitle ?? LABEL_DEFAULTS.pointsTitle,
+    projectsTitle: raw.labels?.projectsTitle ?? LABEL_DEFAULTS.projectsTitle,
+    featuredLabel: raw.labels?.featuredLabel ?? LABEL_DEFAULTS.featuredLabel,
     footer: raw.labels?.footer ?? `${brandName}（${companyName}）`,
   };
 

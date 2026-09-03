@@ -1,4 +1,4 @@
-/* rule: 面を使わず罫線で区切る。青は代表プロジェクトの左罫線と案内の上罫線だけ */
+/* rule: 面を使わず罫線で区切る。青はラベル付き実績の左罫線と案内の上罫線だけ */
 body.theme-rule .sec-head { padding-bottom: 2mm; border-bottom: 0.25mm solid var(--rule); }
 body.theme-rule .sec-head::before { display: none; }
 body.theme-rule .tag.status { background: transparent; border-color: var(--ink); color: var(--ink); }

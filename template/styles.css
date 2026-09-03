@@ -2,7 +2,7 @@
   タレントプロフィール（ブラインド版）の組版。
   方針: 読みやすさを最優先にした一枚の書類。ヒラギノ角ゴ（無ければ Noto Sans JP）、本文11〜11.5pt、
   区切りは面（薄い灰色・ブランド淡色の面）と細い罫線で、飾りは置かない。
-  ブランド色を使う場所は4つだけ: 見出しの印（■）、肩書きと「稼働可能」、代表プロジェクトの左罫線、最終ページの案内面。
+  ブランド色の置き場所はテーマ（template/themes/）が決める。既定の letterhead は上端の色帯と箇条書きの点だけ。
   基準値と理由は docs/design.md。溢れたら文章を削る。色コードは直書きしない（profile.njk の :root から受ける）。
 */
 
@@ -266,7 +266,7 @@ body {
 .proj.featured { padding-left: 5mm; border-left: 1.2mm solid var(--accent); }
 .proj .ph { display: flex; justify-content: space-between; align-items: baseline; gap: 4mm; }
 .proj .pname { font-size: 13pt; font-weight: 700; color: var(--ink); line-height: 1.5; }
-/* 代表プロジェクトのラベル。黒地に白抜きの小さな札 */
+/* 課題に合う実績のラベル（適合／注目）。黒地に白抜きの小さな札 */
 .proj .ptag {
   display: inline-block;
   vertical-align: 0.15em;

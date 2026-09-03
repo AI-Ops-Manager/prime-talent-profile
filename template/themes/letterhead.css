@@ -9,7 +9,7 @@ body.theme-letterhead .tag.status { background: transparent; border-color: var(-
 body.theme-letterhead .photo { border-radius: 0.6mm; }
 body.theme-letterhead .facts { background: transparent; border-radius: 0; padding: 4.5mm 0; border-top: 0.25mm solid var(--rule); border-bottom: 0.25mm solid var(--rule); gap: 4.5mm 6mm; }
 body.theme-letterhead .fit { background: var(--panel); border-radius: 0; }
-/* 代表プロジェクトは左罫線ではなく「代表」のラベルで示す（罫線は気づかれにくい） */
+/* ラベル付き実績は左罫線ではなく「適合／注目」のラベルで示す（罫線は気づかれにくい） */
 body.theme-letterhead .proj.featured { padding-left: 0; border-left: none; }
 body.theme-letterhead .proj .badge { color: var(--muted); }
 body.theme-letterhead .cta { background: var(--ink); color: #fff; border-radius: 0; padding: 4.5mm 8mm; }
