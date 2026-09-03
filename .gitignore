@@ -3,6 +3,9 @@ out/
 preview-tmp/
 .DS_Store
 
+# 端末ごとの設定（PDF の保存先など）。人によって違うので入れない
+local.config.json
+
 # タレントのフォルダは talent.json だけを追跡する。写真（どんなファイル名でも）は入れない
 talents/*/*
 !talents/*/talent.json

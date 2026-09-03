@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import { parseArgs } from "node:util";
 import nunjucks from "nunjucks";
@@ -18,6 +19,37 @@ function listAllSlugs() {
     .sort();
 }
 
+// 端末ごとの設定（git 管理外）。いまは PDF の保存先だけ
+function loadLocalConfig() {
+  const p = path.join(repoRoot, "local.config.json");
+  if (!fs.existsSync(p)) return {};
+  try {
+    return JSON.parse(fs.readFileSync(p, "utf8"));
+  } catch {
+    console.error("警告: local.config.json を読めないので無視します");
+    return {};
+  }
+}
+
+function expandHome(p) {
+  return p.startsWith("~") ? path.join(os.homedir(), p.slice(1)) : p;
+}
+
+// 仕上がった PDF を置く場所。優先順位: --deliver > 環境変数 PTP_DELIVER_DIR > local.config.json > デスクトップ。
+// CI と --no-deliver では配らない
+function resolveDeliverDir({ cliValue, noDeliver, local }) {
+  if (noDeliver || process.env.CI) return null;
+  const raw = cliValue ?? process.env.PTP_DELIVER_DIR ?? local.deliverDir ?? path.join(os.homedir(), "Desktop");
+  return path.resolve(expandHome(String(raw)));
+}
+
+function deliverPdf({ pdfPath, initials, deliverDir }) {
+  fs.mkdirSync(deliverDir, { recursive: true });
+  const dest = path.join(deliverDir, `タレントプロフィール_${initials}_ブラインド版.pdf`);
+  fs.copyFileSync(pdfPath, dest);
+  return dest;
+}
+
 function countPdfPages(bytes) {
   // puppeteerのバージョンによってpage.pdf()の戻り値がUint8Arrayのことがあり、
   // その場合Uint8Array#toString(encoding)は引数を無視してしまうのでBufferへ変換してから読む
@@ -27,7 +59,7 @@ function countPdfPages(bytes) {
   return matches ? matches.length : 0;
 }
 
-async function renderOne({ slug, brand, templateEnv, css, browser, outDir, png, scale, allowOverflow }) {
+async function renderOne({ slug, brand, templateEnv, css, browser, outDir, png, scale, allowOverflow, deliverDir }) {
   assertSlug(slug);
   const talent = loadTalent(slug, brand);
   const meta = {
@@ -110,6 +142,18 @@ async function renderOne({ slug, brand, templateEnv, css, browser, outDir, png, 
     await page.close();
   }
 
+  const hasOverflow = overflow.length > 0;
+
+  // 仕上がった PDF だけを配る。_ 始まり（サンプル・作業用）と、はみ出しのある版は配らない
+  let delivered = null;
+  if (deliverDir && !slug.startsWith("_")) {
+    if (hasOverflow) {
+      warnings.push("はみ出しがあるため保存先には配っていません（直してから描き直してください）");
+    } else {
+      delivered = deliverPdf({ pdfPath: path.join(slugOutDir, "profile.pdf"), initials: talent.initials, deliverDir });
+    }
+  }
+
   const report = {
     slug,
     brand: brand.brandName,
@@ -117,16 +161,16 @@ async function renderOne({ slug, brand, templateEnv, css, browser, outDir, png, 
     pdfBytes,
     overflow,
     warnings,
+    delivered,
     generatedAt: meta.generatedAt,
   };
   fs.writeFileSync(path.join(slugOutDir, "render.json"), JSON.stringify(report, null, 2) + "\n", "utf8");
 
   console.log(`[${slug}] ${path.join(slugOutDir, "profile.pdf")} を生成しました（${domPageCount}ページ, ${pdfBytes} bytes）`);
+  if (delivered) console.log(`[${slug}] 保存: ${delivered}`);
   for (const w of warnings) {
     console.log(`[${slug}] 警告: ${w}`);
   }
-
-  const hasOverflow = overflow.length > 0;
   const exitCode = hasOverflow && !allowOverflow ? 2 : 0;
   return { slug, exitCode };
 }
@@ -134,7 +178,8 @@ async function renderOne({ slug, brand, templateEnv, css, browser, outDir, png, 
 async function main() {
   const rawArgs = process.argv.slice(2);
   const noPng = rawArgs.includes("--no-png");
-  const filteredArgs = rawArgs.filter((a) => a !== "--no-png");
+  const noDeliver = rawArgs.includes("--no-deliver");
+  const filteredArgs = rawArgs.filter((a) => a !== "--no-png" && a !== "--no-deliver");
 
   const { values, positionals } = parseArgs({
     args: filteredArgs,
@@ -144,6 +189,7 @@ async function main() {
       brand: { type: "string" },
       out: { type: "string", default: "out" },
       scale: { type: "string", default: "1.5" },
+      deliver: { type: "string" },
       "allow-overflow": { type: "boolean", default: false },
     },
   });
@@ -152,6 +198,7 @@ async function main() {
   const scale = Number(values.scale) || 1.5;
   const allowOverflow = values["allow-overflow"];
   const outDir = path.resolve(process.cwd(), values.out);
+  const deliverDir = resolveDeliverDir({ cliValue: values.deliver, noDeliver, local: loadLocalConfig() });
 
   let slugs;
   if (values.all) {
@@ -213,6 +260,7 @@ async function main() {
           png,
           scale,
           allowOverflow,
+          deliverDir,
         });
         if (exitCode === 2) hadOverflow = true;
       } catch (err) {

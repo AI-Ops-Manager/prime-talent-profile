@@ -79,8 +79,9 @@ npm run render -- <slug>
 
 ## 5. 仕上げる
 
-- PDF のファイル名は `タレントプロフィール_<INITIALS>_ブラインド版.pdf`（`out/<slug>/profile.pdf` を複製して改名）
-- 保存先は自社の運用に従う（共有ドライブ等）。`out/` は git に入らない
-- 報告に添える: UUID、仮定した事項、残っている確認（稼働の本人確認・所在地・単価の取り決め）、はみ出しを削った箇所
+- はみ出しの無い描画が通ると、`npm run render` が保存先（既定はデスクトップ。`local.config.json` の `deliverDir` か
+  `--deliver <dir>` で変更）に `タレントプロフィール_<INITIALS>_ブラインド版.pdf` を置く。標準出力の「保存:」の行と
+  `out/<slug>/render.json` の `delivered` がその場所。手で複製し直さない
+- 報告に添える: 保存先のパス、UUID、仮定した事項、残っている確認（稼働の本人確認・所在地・単価の取り決め）、はみ出しを削った箇所
 
 同じ人を別の打診先向けに作り直すときは、`talents/<slug>/talent.json` を上書きせず、`talents/<slug>-<打診先>/` に複製して直す。

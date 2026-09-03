@@ -18,6 +18,8 @@ talents/<slug>/talent.json ─┘                                               
 | `brand/brand.json` | 発行名義の設定（唯一の会社固有ファイル）。スキーマは `brand/brand.schema.json` |
 | `brand/<logo>` | ロゴ実体。`brand.json` の `logo.file` で指す |
 | `brand/presets/` | 出発点にできる設定例。`npm run setup -- --preset aom` で複製 |
+| `.mcp.json` | Prime 向け MCP の接続先（`setup` が書く。会社で共通なので commit してよい） |
+| `local.config.json` | 端末ごとの設定。いまは `deliverDir`（PDF の保存先）だけ。git 管理外 |
 | `talents/<slug>/talent.json` | タレント1人分の中身。スキーマは `template/talent.schema.json` |
 | `talents/<slug>/<写真>` | 顔写真。`talent.json` 以外は git 管理外（`.gitignore` の `talents/*/*`） |
 | `template/profile.njk` | Nunjucksテンプレート。ページ→セクションの順に組む |
@@ -35,8 +37,8 @@ slug は `英数字 _ - .` だけ（`..` を含まない）。`_` で始まる s
 
 | コマンド | 実体 | やること |
 |---|---|---|
-| `setup` | `scripts/setup-brand.mjs` | 対話でブランド名・会社名・キーカラー・ロゴ・写真の扱いを聞き、`brand/brand.json` を書き、プレビューを描く。`--preset <name>` で `brand/presets/<name>.json` を土台にする。preset 指定が無く既存の `brand.json` があれば**それを土台にして名義・色・ロゴだけ置き換える**（手で直した `labels` / `defaults` は残る）。`--non-interactive --name .. --company .. --accent .. [--logo path] [--hide-photo] [--no-preview]` でも動く。ロゴは svg / png / jpg / webp のみ受け付け、`brand/` にコピーする |
-| `render` | `scripts/render.mjs` | `<slug>...` または `--all`（`_` `.` 始まりを除く全フォルダ）。`out/<slug>/profile.html` `profile.pdf` `p-N.png` `render.json` を作る。`--brand <file>` で別のブランド設定、`--out <dir>` で出力先変更、`--no-png` でPNG省略、`--scale 1.5` でPNG解像度、`--allow-overflow` ではみ出しがあっても終了コード0 |
+| `setup` | `scripts/setup-brand.mjs` | 対話でブランド名・会社名・キーカラー・ロゴ・写真の扱いを聞き、`brand/brand.json` を書き、プレビューを描く。`--preset <name>` で `brand/presets/<name>.json` を土台にする。preset 指定が無く既存の `brand.json` があれば**それを土台にして名義・色・ロゴだけ置き換える**（手で直した `labels` / `defaults` は残る）。`--non-interactive --name .. --company .. --accent .. [--logo path] [--hide-photo] [--deliver-dir path] [--mcp-url url|tenant] [--no-preview]` でも動く。ロゴは svg / png / jpg / webp のみ受け付け、`brand/` にコピーする。PDF の保存先は `local.config.json` に、MCP の接続先は `.mcp.json` に書く |
+| `render` | `scripts/render.mjs` | `<slug>...` または `--all`（`_` `.` 始まりを除く全フォルダ）。`out/<slug>/profile.html` `profile.pdf` `p-N.png` `render.json` を作り、仕上がった PDF を保存先に `タレントプロフィール_<INITIALS>_ブラインド版.pdf` として複製する。`--brand <file>` で別のブランド設定、`--out <dir>` で作業出力先の変更、`--deliver <dir>` で今回だけ保存先を変更、`--no-deliver` で保存しない、`--no-png` でPNG省略、`--scale 1.5` でPNG解像度、`--allow-overflow` ではみ出しがあっても終了コード0 |
 | `preview` | `render.mjs _example --out preview` | ブランド反映の確認用。`preview/_example/` に出る |
 | `photo` | `scripts/photo.mjs` | `<slug> <url>`（http/https のみ・20MBまで）で写真を `talents/<slug>/photo.<ext>` に保存し、`talent.json` の `photo` を埋める |
 | `check` | `scripts/check.mjs` | スキーマ検証、個人情報らしき文字列の検出、写真ファイルの存在確認、ブランド未設定の警告。`[slug...]` 省略時は全件。`--brand-only` で brand.json だけ |
@@ -46,6 +48,12 @@ slug は `英数字 _ - .` だけ（`..` を含まない）。`_` で始まる s
 
 `check` は、メールアドレス・電話番号・SNS やポートフォリオの URL（x.com / linkedin.com / github.com / note.com 等）を
 本文で見つけるとエラーにする。`_note` の中と `@ハンドル` らしき文字列は警告に留める。
+
+### PDF の保存先
+
+優先順位は `--deliver` > 環境変数 `PTP_DELIVER_DIR` > `local.config.json` の `deliverDir` > デスクトップ（`~/Desktop`）。
+`_` 始まりの slug（サンプル・作業用）、はみ出しのある版、CI（環境変数 `CI` あり）、`--no-deliver` のときは配らない。
+同名ファイルは上書きする（古い版を残さない）。`render.json` の `delivered` に置いた先が入る。
 
 ## テンプレートが受け取るコンテキスト
 

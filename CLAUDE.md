@@ -26,7 +26,8 @@
 
 ```bash
 npm run setup                      # ブランド設定（対話）
-npm run render -- <slug>           # 1名を描く → out/<slug>/profile.pdf, p-N.png
+npm run render -- <slug>           # 1名を描く → out/<slug>/profile.pdf, p-N.png。仕上がりは保存先（既定デスクトップ、local.config.json で変更）へ
+npm run render -- <slug> --deliver <dir>   # 今回だけ保存先を変える（--no-deliver で置かない）
 npm run render -- --all            # 全員
 npm run preview                    # サンプルで見え方を確認 → preview/
 npm run photo -- <slug> <url>      # 写真を保存して talent.json に反映

@@ -9,6 +9,43 @@ import { validate } from "./lib/schema.mjs";
 const BRAND_SCHEMA = path.join(brandDir, "brand.schema.json");
 const BRAND_JSON_PATH = path.join(brandDir, "brand.json");
 const PRESETS_DIR = path.join(brandDir, "presets");
+const LOCAL_CONFIG_PATH = path.join(repoRoot, "local.config.json"); // 端末ごと（git管理外）
+const MCP_JSON_PATH = path.join(repoRoot, ".mcp.json"); // 会社ごと（commitしてよい）
+
+function loadJsonIfExists(p) {
+  try {
+    return fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, "utf8")) : null;
+  } catch {
+    return null;
+  }
+}
+
+// PDF の保存先は人ごとに違うので local.config.json（git管理外）に書く。空なら書かない（＝デスクトップ）
+function writeDeliverDir(deliverDir) {
+  if (!deliverDir) return;
+  const current = loadJsonIfExists(LOCAL_CONFIG_PATH) ?? {};
+  current.deliverDir = deliverDir;
+  fs.writeFileSync(LOCAL_CONFIG_PATH, JSON.stringify(current, null, 2) + "\n", "utf8");
+  console.log(`local.config.json に PDF の保存先を書きました: ${deliverDir}`);
+}
+
+// テナント名だけが入力されたら Prime の既定ドメインで URL にする
+function normalizeMcpUrl(input) {
+  const v = String(input ?? "").trim();
+  if (!v) return null;
+  if (/^https?:\/\//i.test(v)) return v;
+  if (/^[a-z0-9-]+$/i.test(v)) return `https://${v.toLowerCase()}.prime.ai-ops-manager.com/mcp`;
+  return null;
+}
+
+// Claude Code のプロジェクト設定 .mcp.json に Prime 向け MCP を登録する（認証は各自が /mcp で行う）
+function writeMcpConfig(mcpUrl) {
+  if (!mcpUrl) return;
+  const current = loadJsonIfExists(MCP_JSON_PATH) ?? {};
+  current.mcpServers = { ...(current.mcpServers ?? {}), "talent-hub-prime": { type: "http", url: mcpUrl } };
+  fs.writeFileSync(MCP_JSON_PATH, JSON.stringify(current, null, 2) + "\n", "utf8");
+  console.log(`.mcp.json に Prime 向け MCP を書きました: ${mcpUrl}（Claude Code の /mcp でログインしてください）`);
+}
 
 const PLACEHOLDER_BASE = {
   brandName: "YOUR BRAND",
@@ -157,7 +194,18 @@ async function runInteractive(rl, base, baseLogoDir) {
   const hideInput = (await promptWithDefault(rl, "写真を伏せますか（y/N）", hideDefault)).toLowerCase();
   const hidePhoto = hideInput === "y" || hideInput === "yes";
 
-  return { brandName, companyName, accent, logo, hidePhoto };
+  const localCurrent = loadJsonIfExists(LOCAL_CONFIG_PATH) ?? {};
+  const deliverInput = await promptWithDefault(rl, "PDF の保存先フォルダ（空ならデスクトップ）", localCurrent.deliverDir ?? "");
+  const deliverDir = deliverInput || null;
+
+  const mcpCurrent = loadJsonIfExists(MCP_JSON_PATH)?.mcpServers?.["talent-hub-prime"]?.url ?? "";
+  const mcpInput = await promptWithDefault(rl, "Prime 向け MCP の URL またはテナント名（AOMから案内。空でスキップ）", mcpCurrent);
+  const mcpUrl = mcpInput ? normalizeMcpUrl(mcpInput) : null;
+  if (mcpInput && !mcpUrl) {
+    console.log("URL の形式が読めなかったので .mcp.json は書きません（https:// から始まる URL か、テナント名だけを入れてください）");
+  }
+
+  return { brandName, companyName, accent, logo, hidePhoto, deliverDir, mcpUrl };
 }
 
 function runNonInteractive(values, base, baseLogoDir) {
@@ -177,7 +225,17 @@ function runNonInteractive(values, base, baseLogoDir) {
   const logo = resolveLogo(values.logo ?? "", base, baseLogoDir);
   const hidePhoto = values["hide-photo"] ?? false;
 
-  return { brandName: values.name, companyName: values.company, accent, logo, hidePhoto };
+  const deliverDir = values["deliver-dir"] || null;
+  let mcpUrl = null;
+  if (values["mcp-url"]) {
+    mcpUrl = normalizeMcpUrl(values["mcp-url"]);
+    if (!mcpUrl) {
+      console.error(`エラー: --mcp-url の形式が読めません（${values["mcp-url"]}）。https:// から始まる URL か、テナント名だけを渡してください`);
+      process.exit(1);
+    }
+  }
+
+  return { brandName: values.name, companyName: values.company, accent, logo, hidePhoto, deliverDir, mcpUrl };
 }
 
 function buildBrandJson({ brandName, companyName, accent, logo, hidePhoto, base }) {
@@ -214,6 +272,8 @@ async function main() {
       logo: { type: "string" },
       "hide-photo": { type: "boolean", default: false },
       "no-preview": { type: "boolean", default: false },
+      "deliver-dir": { type: "string" },
+      "mcp-url": { type: "string" },
     },
   });
 
@@ -246,6 +306,9 @@ async function main() {
   validate(BRAND_SCHEMA, brandJson, "brand/brand.json（生成結果）");
   fs.writeFileSync(BRAND_JSON_PATH, JSON.stringify(brandJson, null, 2) + "\n", "utf8");
   console.log(`brand/brand.json を書き込みました${values.preset ? `（preset: ${values.preset}）` : ""}`);
+
+  writeDeliverDir(answers.deliverDir);
+  writeMcpConfig(answers.mcpUrl);
 
   // talents/側の不備でsetupが止まらないよう、ここではbrand.jsonだけを見る
   const checkResult = spawnSync(process.execPath, [path.join(repoRoot, "scripts", "check.mjs"), "--brand-only"], {

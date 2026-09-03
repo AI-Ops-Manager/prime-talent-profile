@@ -15,6 +15,8 @@ description: このリポジトリの発行名義（ロゴ・キーカラー・�
 - ロゴファイル（SVG が望ましい。PNG なら透過・横幅800px以上）。無ければ文字で代替できる
 - 写真を出す運用か、伏せる運用か（`defaults.hidePhoto`）
 - 参考単価の既定表示（例: 「商談時にご共有」「15,000円/h〜」）。AOM との取り決めに従う
+- 仕上がった PDF を置くフォルダ（既定はデスクトップ。共有ドライブにしたければそのパス。人ごとの設定で git には入らない）
+- Prime 向け MCP の URL またはテナント名（AOM から案内があれば。`.mcp.json` に登録される）
 
 ガイドラインPDFや既存資料を渡されたら、そこから色・ロゴ・表記を拾って提案し、確認を取る。
 
@@ -26,7 +28,7 @@ description: このリポジトリの発行名義（ロゴ・キーカラー・�
 npm run setup -- --non-interactive --name "<ブランド名>" --company "<会社名>" --accent "#RRGGBB" --logo <ロゴのパス> --no-preview
 ```
 
-写真を伏せる運用なら `--hide-photo` を足す。単価の既定表示や定型文（`labels`）を変えるときは、書かれた `brand/brand.json` を直接編集する。
+写真を伏せる運用なら `--hide-photo`、PDF の保存先を変えるなら `--deliver-dir <フォルダ>`、MCP の接続先があれば `--mcp-url <URLかテナント名>` を足す。単価の既定表示や定型文（`labels`）を変えるときは、書かれた `brand/brand.json` を直接編集する。
 既に `brand/brand.json` がある状態で再実行すると、名義・色・ロゴだけが置き換わり、手で直した `labels` と `defaults` は残る。
 AOM 自身の名義で出すときは `npm run setup -- --preset aom` を土台にする。
 

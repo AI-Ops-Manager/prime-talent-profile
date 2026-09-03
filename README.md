@@ -51,9 +51,14 @@ cp talents/_example/talent.json talents/kk/talent.json   # 中身を書き換え
 npm run render -- kk
 ```
 
-`out/kk/profile.pdf` と確認用の `out/kk/p-1.png` 〜 ができます。
-ページに収まらない分量だと「ページ N が X.Xmm はみ出しています」と出るので、文章を削ってもう一度描きます。
-フォントサイズや余白を小さくして収めることはしません（読みやすさの基準を下げないため）。
+`out/kk/profile.pdf` と確認用の `out/kk/p-1.png` 〜 ができ、仕上がった PDF は
+**デスクトップに `タレントプロフィール_K.K._ブラインド版.pdf` として保存されます**。
+ページに収まらない分量だと「ページ N が X.Xmm はみ出しています」と出るので、文章を削ってもう一度描きます
+（はみ出しがある版は保存先に置きません）。フォントサイズや余白を小さくして収めることはしません。
+
+保存先は人ごとに変えられます。`npm run setup` の「PDF の保存先フォルダ」で答えるか、
+`local.config.json`（git には入らない）に `{"deliverDir": "~/Dropbox/資料"}` のように書きます。
+その場限りなら `npm run render -- kk --deliver <フォルダ>`、置きたくなければ `--no-deliver` です。
 
 `talent.json` に `fit`（解決できる課題、3点）と `points`（推薦理由、4点）を書くと、提案向けの構成になります。
 案件が決まっていればその要件から、決まっていなければ本人のプロジェクトが実際に解いた課題から書きます。
@@ -75,7 +80,8 @@ npm run render -- kk
 | `/talent-profile` | 候補1名の `talent.json` を書き、描画し、確認して PDF を仕上げる |
 
 タレントのデータは、AOM が用意する Prime 向け MCP（`search_talents` / `get_talent`）から取ります。
-接続の手順は [docs/mcp-setup.md](docs/mcp-setup.md) にあります。MCP を使わない場合は、AOM から受け取ったデータシートを元に Claude が `talent.json` を書きます。
+`npm run setup` で「Prime 向け MCP の URL またはテナント名」を答えると `.mcp.json` に登録され、
+あとは各自が Claude Code の `/mcp` でログインするだけです。詳しくは [docs/mcp-setup.md](docs/mcp-setup.md)。MCP を使わない場合は、AOM から受け取ったデータシートを元に Claude が `talent.json` を書きます。
 
 ## 書いてはいけないこと
 
@@ -93,6 +99,8 @@ npm run render -- kk
 
 ```
 brand/          ブランド設定（brand.json）とロゴ。会社固有の情報はここだけ
+.mcp.json       Prime 向け MCP の接続先（npm run setup が書く。会社で共通）
+local.config.json  PDF の保存先など端末ごとの設定（git には入らない）
 talents/        タレントごとのフォルダ。_example は架空のサンプル
 template/       テンプレートと組版（触るときは docs/design.md を先に読む）
 scripts/        描画・設定・検証のスクリプト
