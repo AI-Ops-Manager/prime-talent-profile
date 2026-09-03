@@ -105,7 +105,7 @@ slug は `英数字 _ - .` だけ（`..` を含まない）。`_` で始まる s
   SVG は XML 宣言・コメント・`width`/`height` 属性を除き、`viewBox` が無ければ補う。`logo.color` が `accent` / `ink` のときは
   SVG 中の `currentColor` を `accentText` / `ink` の HEX に置換してから埋め込む（`original` は無加工）。`logo` が null なら null。
 - `facts`: 順序は 稼働目安 / 参考単価 / 稼働開始 / 契約形態 / 勤務スタイル / 希望領域。
-  talent 側が null のセルは `brand.defaults` で埋める。参考単価の既定は「15,000円/h〜」（注記「手数料込」）で、
+  talent 側が null のセルは `brand.defaults` で埋める。参考単価の既定は「15,000円/h〜」（注記なし）で、
   `brand.defaults.rate` を null にすると「別途ご案内」、
   稼働目安は null なら「応相談」、希望領域は null なら「ご面談時にご相談」。
 - `photoSrc`: `talent.photo` のファイルがあり、拡張子が jpg/jpeg/png/webp/svg で、かつ `brand.defaults.hidePhoto` が false のときだけ data URI。
