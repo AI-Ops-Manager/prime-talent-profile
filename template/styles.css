@@ -230,6 +230,61 @@ body {
 .prose + .prose { margin-top: 3mm; }
 .prose b { font-weight: 600; color: var(--ink); }
 
+/* ---------- 課題（こんな課題をお持ちの企業様に） ---------- */
+.fitbox {
+  border: 0.25mm solid var(--hairline);
+  border-left: 0.7mm solid var(--accent);
+  border-radius: 0.6mm;
+  padding: 3.4mm 5mm 3.4mm 5.5mm;
+  display: flex;
+  flex-direction: column;
+  gap: 2mm;
+}
+.fitbox .item {
+  display: grid;
+  grid-template-columns: 1.7mm 1fr;
+  column-gap: 2.8mm;
+  align-items: start;
+  font-size: 10.5pt;
+  line-height: 1.65;
+  font-weight: 500;
+  color: var(--ink);
+}
+.fitbox .item::before { content: ""; width: 1.7mm; height: 1.7mm; background: var(--accent); margin-top: 2.2mm; }
+.fitbox .item b { font-weight: 700; }
+
+/* ---------- おすすめポイント ---------- */
+.points { display: flex; flex-direction: column; gap: 2.2mm; }
+.points .item {
+  display: grid;
+  grid-template-columns: 1.7mm 1fr;
+  column-gap: 2.8mm;
+  align-items: start;
+  font-size: 10.5pt;
+  line-height: 1.7;
+  color: var(--body);
+  text-align: justify;
+}
+.points .item::before { content: ""; width: 1.7mm; height: 1.7mm; background: var(--accent); margin-top: 2.3mm; }
+.points .item b { font-weight: 600; color: var(--ink); }
+
+/* 5節以上を載せるページ（エンド訴求型の1ページ目）は縦の間隔と本文を一段詰める。
+   下限は docs/design.md の基準（本文10pt）。ここより下げず、入らなければ文章を削る */
+.dense .hero { margin-top: 7mm; }
+.dense .photo { height: 42mm; }
+.dense .facts { margin-top: 6mm; }
+.dense .fact { padding: 3.4mm 4mm 3.4mm 0; }
+.dense .section { margin-top: 6mm; }
+.dense .body > .section:first-child { margin-top: 6.5mm; }
+.dense .sec-head { margin-bottom: 3.2mm; }
+.dense .prose { font-size: 10.5pt; line-height: 1.8; }
+.dense .fitbox { padding: 3mm 5mm 3mm 5.5mm; gap: 1.6mm; }
+.dense .fitbox .item { font-size: 10pt; line-height: 1.6; }
+.dense .fitbox .item::before { margin-top: 2mm; }
+.dense .points { gap: 1.8mm; }
+.dense .points .item { font-size: 10pt; line-height: 1.65; }
+.dense .points .item::before { margin-top: 2.1mm; }
+
 /* ---------- 対応領域 ---------- */
 .cov {
   display: grid;

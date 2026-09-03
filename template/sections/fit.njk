@@ -1,0 +1,11 @@
+{# こんな課題をお持ちの企業様に。読み手の悩みを一人称で、各1行・3点が目安。無ければ節ごと出さない #}
+{% if talent.fitHtml and talent.fitHtml.length %}
+<div class="section">
+  <div class="sec-head"><span class="kicker">Challenges</span><h2>{{ brand.labels.fitTitle }}</h2></div>
+  <div class="fitbox">
+    {% for f in talent.fitHtml %}
+    <div class="item"><span>{{ f | safe }}</span></div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}

@@ -33,7 +33,7 @@
 <body>
 {% for sections in pages %}
 {% set pageNo = loop.index %}
-<section class="page" data-page="{{ pageNo }}">
+<section class="page{% if sections.length >= 5 %} dense{% endif %}" data-page="{{ pageNo }}">
   <header class="head">
     <div class="head-l">
       {% if brand.logoHtml %}<span class="logo">{{ brand.logoHtml | safe }}</span>{% else %}<span class="brandtext">{{ brand.brandName }}</span>{% endif %}

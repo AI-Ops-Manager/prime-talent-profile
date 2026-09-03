@@ -16,6 +16,8 @@ const LABEL_DEFAULTS = {
   ctaLead: "こちらのタレントにご関心をお持ちいただけましたら",
   ctaBody:
     "実名・詳細プロフィール・ポートフォリオの開示、ご本人とのオンライン面談（30分程度）をセッティングします。稼働量・関与範囲・条件は柔軟にご相談いただけます。",
+  fitTitle: "こんな課題をお持ちの企業様に",
+  pointsTitle: "おすすめポイント",
 };
 
 const DEFAULTS_DEFAULTS = {
@@ -155,6 +157,8 @@ export function loadBrand(file) {
     blindNote: raw.labels?.blindNote ?? LABEL_DEFAULTS.blindNote,
     ctaLead: raw.labels?.ctaLead ?? LABEL_DEFAULTS.ctaLead,
     ctaBody: raw.labels?.ctaBody ?? LABEL_DEFAULTS.ctaBody,
+    fitTitle: raw.labels?.fitTitle ?? LABEL_DEFAULTS.fitTitle,
+    pointsTitle: raw.labels?.pointsTitle ?? LABEL_DEFAULTS.pointsTitle,
     footer: raw.labels?.footer ?? `${brandName}（${companyName}）`,
   };
 

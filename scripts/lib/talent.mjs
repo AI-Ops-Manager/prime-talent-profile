@@ -34,6 +34,23 @@ const PAGES_WITHOUT_PROJECTS = [
   ["career", "skills", "cta"],
 ];
 
+// fit（課題）/ points（おすすめポイント）があるエンド訴求型は、1ページ目を売り込みに使い、対応領域を2ページ目に送る
+const PAGES_PITCH_WITH_PROJECTS = [
+  ["hero", "facts", "overview", "fit", "points"],
+  ["coverage", "career", "skills"],
+  ["projects", "cta"],
+];
+
+const PAGES_PITCH_WITHOUT_PROJECTS = [
+  ["hero", "facts", "overview", "fit", "points"],
+  ["coverage", "career", "skills", "cta"],
+];
+
+function defaultPages({ pitch, hasProjects }) {
+  if (pitch) return hasProjects ? PAGES_PITCH_WITH_PROJECTS : PAGES_PITCH_WITHOUT_PROJECTS;
+  return hasProjects ? PAGES_WITH_PROJECTS : PAGES_WITHOUT_PROJECTS;
+}
+
 function jstYearMonth(date) {
   const jst = new Date(date.getTime() + 9 * 60 * 60 * 1000);
   const y = jst.getUTCFullYear();
@@ -135,7 +152,10 @@ export function loadTalent(slug, brand) {
     featured: p.featured ?? false,
   }));
 
-  const pages = raw.layout?.pages ?? (projects.length > 0 ? PAGES_WITH_PROJECTS : PAGES_WITHOUT_PROJECTS);
+  const fitHtml = (raw.fit ?? []).map((p) => inline(p));
+  const pointsHtml = (raw.points ?? []).map((p) => inline(p));
+  const pitch = fitHtml.length > 0 || pointsHtml.length > 0;
+  const pages = raw.layout?.pages ?? defaultPages({ pitch, hasProjects: projects.length > 0 });
 
   return {
     slug,
@@ -146,6 +166,9 @@ export function loadTalent(slug, brand) {
     photoSrc: resolvePhotoSrc(talentDir, raw.photo, defaults.hidePhoto),
     facts: buildFacts(raw, defaults),
     overviewHtml: raw.overview.map((p) => inline(p)),
+    // エンド訴求型の2節。無ければ空配列（テンプレート側は length で節ごと出し分ける）
+    fitHtml,
+    pointsHtml,
     // items が空の行は落とす（テンプレート側は talent.coverage.length で節ごと出し分ける）
     coverage: [
       { label: "役割", items: raw.coverage?.roles ?? [] },

@@ -64,6 +64,20 @@
         "industries": { "$ref": "#/$defs/strings", "description": "業界（例: SaaS / IT / Web）" }
       }
     },
+    "fit": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 5,
+      "items": { "type": "string", "minLength": 1 },
+      "description": "「こんな課題をお持ちの企業様に」。読み手（エンド企業）の悩みを相手の一人称で、各1行（全角30字以内）。3点が目安。打診先や案件が分かっているときに書く。書くと1ページ目が 概要→課題→おすすめポイント の構成になり、対応領域は2ページ目に移る"
+    },
+    "points": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 5,
+      "items": { "type": "string", "minLength": 1 },
+      "description": "「おすすめポイント」。上の課題への答えになる実績を数字で、各1〜2行（全角50字目安）・**太字**は1箇所。4点が目安"
+    },
     "career": {
       "type": "array",
       "minItems": 1,
@@ -120,9 +134,9 @@
           "items": {
             "type": "array",
             "minItems": 1,
-            "items": { "enum": ["hero", "facts", "overview", "coverage", "career", "skills", "projects", "cta"] }
+            "items": { "enum": ["hero", "facts", "overview", "fit", "points", "coverage", "career", "skills", "projects", "cta"] }
           },
-          "description": "ページ割りを手で決めたいときだけ指定する。省略時は 3ページ（プロジェクトが無ければ 2ページ）"
+          "description": "ページ割りを手で決めたいときだけ指定する。省略時は 3ページ（プロジェクトが無ければ 2ページ）。fit / points があるときは1ページ目が 概要・課題・おすすめポイント、2ページ目が 対応領域・経歴・スキル になる"
         }
       }
     }

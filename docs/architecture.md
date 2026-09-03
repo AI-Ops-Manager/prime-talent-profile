@@ -21,7 +21,7 @@ talents/<slug>/talent.json ─┘                                               
 | `talents/<slug>/talent.json` | タレント1人分の中身。スキーマは `template/talent.schema.json` |
 | `talents/<slug>/<写真>` | 顔写真。`talent.json` 以外は git 管理外（`.gitignore` の `talents/*/*`） |
 | `template/profile.njk` | Nunjucksテンプレート。ページ→セクションの順に組む |
-| `template/sections/*.njk` | セクション単位の部品（hero / facts / overview / coverage / career / skills / projects / cta） |
+| `template/sections/*.njk` | セクション単位の部品（hero / facts / overview / fit / points / coverage / career / skills / projects / cta） |
 | `template/styles.css` | 組版。ブランド色はCSS変数で受ける |
 | `scripts/` | CLI群（下記） |
 | `out/<slug>/` | 生成物（git管理外） |
@@ -70,6 +70,8 @@ slug は `英数字 _ - .` だけ（`..` を含まない）。`_` で始まる s
     photoSrc,          // data URI / null
     facts: [ { k: "稼働目安", v: "月 40h〜", note: "増減ご相談可" }, ... ],   // 6件固定・この順
     overviewHtml: [ "<b>..</b> を含むHTML文字列", ... ],
+    fitHtml: [ "課題1", "課題2", "課題3" ],               // talent.fit が無ければ []
+    pointsHtml: [ "<b>..</b> を含むHTML文字列", ... ],     // talent.points が無ければ []
     coverage: [ { label: "役割", items: [...] }, ... ],   // items が空の行は含めない（全部空なら []）
     career: [ { period, org, title, note, headline, body } ],
     skills: [ { group, level, items } ],
@@ -99,12 +101,16 @@ slug は `英数字 _ - .` だけ（`..` を含まない）。`_` で始まる s
 - `overviewHtml`: HTMLエスケープ後に `**x**` → `<b>x</b>`、改行 → `<br>`。
 - `pages`: `talent.layout.pages` があればそれ。無ければ projects が1件以上で3ページ、0件なら
   `[["hero","facts","overview","coverage"],["career","skills","cta"]]` の2ページ。
+  `fit` か `points` が1件以上あるエンド訴求型は、1ページ目を `hero, facts, overview, fit, points`、2ページ目を
+  `coverage, career, skills` にする（projects が無ければ2ページ目末尾に cta）。5節以上を載せるページには
+  テンプレートが `dense` クラスを付け、縦の間隔を少し詰める。
 - `issued` 省略時は生成日の `YYYY.MM`（JST）。`meta.year` は `issued` の年（現状テンプレートは `meta.total` だけ使う）。
 
 ## はみ出し検知
 
-各 `.page` は A4 固定高さ。描画後に `scrollHeight > clientHeight` のページを拾い、
-超過量を mm に換算して報告する。PDFは作るが終了コードは2にする。
+各 `.page` は A4 固定高さで、本文域 `.body` はフッターの上までの高さに収まるよう縮む。描画後に `.page` と `.body` の
+それぞれで `scrollHeight - clientHeight` を測り、大きい方が正なら超過量を mm に換算して報告する
+（`.page` だけを見ると、本文がフッターや下余白に食い込んだ場合を見逃す）。PDFは作るが終了コードは2にする。
 直し方は文章を削ること（フォントや余白は触らない。`docs/design.md`）。
 横方向のはみ出しは検知しない。長い肩書きは2ページ目以降のヘッダーで末尾を省略する。
 

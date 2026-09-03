@@ -65,7 +65,12 @@ async function renderOne({ slug, brand, templateEnv, css, browser, outDir, png, 
     overflow = await page.evaluate(() => {
       const out = [];
       document.querySelectorAll(".page").forEach((el, i) => {
-        const diff = el.scrollHeight - el.clientHeight;
+        // .page は overflow:hidden の固定高さ。本文域（.body）はフッターの上までしか無いので、
+        // 本文がフッターや下余白に食い込んだ場合は .body の scrollHeight にだけ現れる。両方見て大きい方を採る
+        const body = el.querySelector(".body");
+        const pageDiff = el.scrollHeight - el.clientHeight;
+        const bodyDiff = body ? body.scrollHeight - body.clientHeight : 0;
+        const diff = Math.max(pageDiff, bodyDiff);
         if (diff > 0) {
           const mm = Math.round((diff / 96) * 25.4 * 10) / 10;
           out.push({ page: i + 1, mm });

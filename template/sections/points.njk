@@ -1,0 +1,11 @@
+{# おすすめポイント。課題への答えになる実績を数字で、各1〜2行・4点が目安。無ければ節ごと出さない #}
+{% if talent.pointsHtml and talent.pointsHtml.length %}
+<div class="section">
+  <div class="sec-head"><span class="kicker">Highlights</span><h2>{{ brand.labels.pointsTitle }}</h2></div>
+  <div class="points">
+    {% for p in talent.pointsHtml %}
+    <div class="item"><span>{{ p | safe }}</span></div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
