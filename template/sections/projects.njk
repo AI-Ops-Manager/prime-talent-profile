@@ -1,0 +1,19 @@
+{# プロジェクト。featured=true は左の罫線で立てる（2件が目安） #}
+{% if talent.projects and talent.projects.length %}
+<div class="section">
+  <div class="sec-head"><span class="kicker">Projects</span><h2>プロジェクト</h2></div>
+  <div class="projects">
+    {% for p in talent.projects %}
+    <div class="proj{% if p.featured %} featured{% endif %}">
+      <div class="ph">
+        <span class="pname">{{ p.name }}</span>
+        {% if p.badge %}<span class="badge">{{ p.badge }}</span>{% endif %}
+      </div>
+      {% if p.subtitle %}<div class="sub">{{ p.subtitle }}</div>{% endif %}
+      {% if p.body %}<p>{{ p.body }}</p>{% endif %}
+      {% if p.tools %}<div class="tools"><b>主な利用ツール</b>　{{ p.tools }}</div>{% endif %}
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}

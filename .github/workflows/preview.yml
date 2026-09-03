@@ -1,0 +1,60 @@
+name: Preview
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "brand/**"
+      - "template/**"
+      - "scripts/**"
+      - "talents/_example/**"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: preview-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: 日本語フォントを導入
+        run: sudo apt-get update && sudo apt-get install -y fonts-noto-cjk
+
+      - name: 依存関係をインストール
+        run: npm ci
+
+      - name: スキーマ検証
+        run: npm run check
+
+      - name: サンプルを描画
+        # はみ出しがあっても画像は更新する（崩れた状態が README で見えたほうが気づける。警告は render.json に残る）
+        run: npm run render -- _example --out preview-tmp --allow-overflow
+
+      - name: プレビュー画像を更新
+        run: |
+          mkdir -p preview/_example
+          cp preview-tmp/_example/p-*.png preview/_example/
+          cp preview-tmp/_example/render.json preview/_example/
+
+      - name: 差分をcommit & push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add preview
+          if git diff --cached --quiet; then
+            echo "差分なし"
+          else
+            git commit -m "chore: update preview [skip ci]"
+            git push
+          fi

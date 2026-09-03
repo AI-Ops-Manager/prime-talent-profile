@@ -1,0 +1,21 @@
+{
+  "name": "prime-talent-profile",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "setup": "node scripts/setup-brand.mjs",
+    "render": "node scripts/render.mjs",
+    "preview": "node scripts/render.mjs _example --out preview",
+    "photo": "node scripts/photo.mjs",
+    "check": "node scripts/check.mjs"
+  },
+  "dependencies": {
+    "ajv": "^8.20.0",
+    "ajv-formats": "^3.0.1",
+    "nunjucks": "^3.2.4",
+    "puppeteer": "^25.9.0"
+  }
+}

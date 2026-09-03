@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "brand.schema.json",
+  "title": "ブランド設定（brand/brand.json）",
+  "description": "発行名義の会社ごとに1つ。ロゴ・色・定型文をここで決めると、すべてのプロフィールに反映される。",
+  "type": "object",
+  "required": ["brandName", "companyName", "colors"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "brandName": {
+      "type": "string",
+      "minLength": 1,
+      "description": "資料に出す名義（例: Sample AI Partner）。ロゴが無いときはこの文字列がヘッダーに出る"
+    },
+    "companyName": {
+      "type": "string",
+      "minLength": 1,
+      "description": "運営会社の正式名（例: 株式会社サンプル）。CTAとフッターに出る"
+    },
+    "logo": {
+      "type": ["object", "null"],
+      "description": "ヘッダーとCTAに出すロゴ。null ならブランド名の文字で代替する",
+      "required": ["file"],
+      "additionalProperties": false,
+      "properties": {
+        "file": { "type": "string", "description": "brand/ からの相対パス（svg / png / jpg / webp）。SVG は <img> として埋め込むので、ロゴ内の CSS や script は資料に影響しない" },
+        "height": {
+          "type": "string",
+          "pattern": "^[0-9]+(\\.[0-9]+)?(mm|pt|px)$",
+          "default": "7mm",
+          "description": "ヘッダーでの表示高さ"
+        },
+        "color": {
+          "enum": ["original", "accent", "ink"],
+          "default": "original",
+          "description": "SVGで fill=\"currentColor\" を使っているロゴだけ色を差し替えられる（accent は文字用に補正した accentText の色になる）。PNG/JPGは original 固定"
+        }
+      }
+    },
+    "colors": {
+      "type": "object",
+      "required": ["accent"],
+      "additionalProperties": false,
+      "properties": {
+        "accent": { "$ref": "#/$defs/hex", "description": "ブランドのキーカラー。見出しの小ラベル・ロール名・罫線のアクセントに使う" },
+        "accentDark": { "$ref": "#/$defs/hex", "description": "省略時は accent を暗くして作る" },
+        "accentText": { "$ref": "#/$defs/hex", "description": "文字に使うアクセント色（肩書き・英字ラベル・稼働タグ）。省略時は accent を紙とのコントラスト比 4.5 以上になるまで暗くして作る。自動補正の色が気に入らないときだけ指定する" },
+        "ink": { "$ref": "#/$defs/hex", "description": "見出し・氏名の文字色。省略時 #1A1A1A" },
+        "body": { "$ref": "#/$defs/hex", "description": "本文の文字色。省略時 #3C3C3C" },
+        "muted": { "$ref": "#/$defs/hex", "description": "注記・ラベルの文字色。省略時 #8A8A8A" },
+        "hairline": { "$ref": "#/$defs/hex", "description": "罫線の色。省略時 #D9D9D9" },
+        "paper": { "$ref": "#/$defs/hex", "description": "紙の色。省略時 #FFFFFF" },
+        "tint": { "$ref": "#/$defs/hex", "description": "アクセントの淡色面。省略時は accent と paper を混ぜて作る" }
+      }
+    },
+    "typography": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "webFonts": {
+          "type": "boolean",
+          "default": true,
+          "description": "true なら Google Fonts（Noto Sans JP / EB Garamond）を読み込み、環境差を無くす。false ならOSのフォントだけで組む"
+        }
+      }
+    },
+    "labels": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "docType": { "type": "string", "description": "ヘッダー右の文書種別。既定「ご紹介資料」" },
+        "docTitle": { "type": "string", "description": "ヘッダー中央のタイトル。既定「タレントのご紹介（ブラインド版）」" },
+        "confidential": { "type": "string", "description": "フッター右の取扱表示。既定「Strictly Confidential」" },
+        "blindNote": { "type": "string", "description": "氏名欄の下に置く非公開の断り書き" },
+        "ctaLead": { "type": "string", "description": "最終ページ末尾の案内見出し" },
+        "ctaBody": { "type": "string", "description": "最終ページ末尾の案内本文" },
+        "footer": { "type": "string", "description": "フッター左の表記。省略時は「{brandName}（{companyName}）」" }
+      }
+    },
+    "defaults": {
+      "type": "object",
+      "description": "タレント側で未指定のときに使う既定値",
+      "additionalProperties": false,
+      "properties": {
+        "hidePhoto": { "type": "boolean", "default": false, "description": "true なら写真を出さずイニシャルの枠にする（名義のルールで写真を伏せる会社向け）" },
+        "rate": { "type": ["string", "null"], "description": "参考単価の既定表示（例: 商談時にご共有）。null なら「別途ご案内」" },
+        "rateNote": { "type": ["string", "null"], "description": "参考単価の注記" },
+        "hoursNote": { "type": ["string", "null"], "description": "稼働目安の注記。既定「増減ご相談可」" },
+        "contract": { "type": "string", "description": "契約形態の既定。既定「業務委託（準委任）」" },
+        "start": { "type": "string", "description": "稼働開始の既定。既定「応相談」" },
+        "workStyle": { "type": "string", "description": "勤務スタイルの既定。既定「応相談」" }
+      }
+    }
+  },
+  "$defs": {
+    "hex": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" }
+  }
+}

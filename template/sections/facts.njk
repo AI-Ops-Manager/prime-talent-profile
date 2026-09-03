@@ -1,0 +1,10 @@
+{# 基本情報6項目。順序と既定値は scripts/lib/talent.mjs が決める #}
+<div class="facts">
+  {% for f in talent.facts %}
+  <div class="fact">
+    <div class="k">{{ f.k }}</div>
+    <div class="v">{{ f.v }}</div>
+    {% if f.note %}<div class="note">{{ f.note }}</div>{% endif %}
+  </div>
+  {% endfor %}
+</div>

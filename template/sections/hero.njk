@@ -1,0 +1,19 @@
+{# 氏名ブロック。写真が無いとき（伏せる運用・未登録）はイニシャルの枠 #}
+<div class="hero">
+  {% if talent.photoSrc %}
+  <img class="photo" src="{{ talent.photoSrc }}" alt="{{ talent.initials }}" />
+  {% else %}
+  <div class="photo blank"><span>{{ talent.initials }}</span></div>
+  {% endif %}
+  <div class="hero-main">
+    <div class="tags">
+      <span class="tag status">{{ talent.availability.label }}</span>
+      <span class="tag">{{ talent.facts[3].v }}</span>
+    </div>
+    <div class="name-row">
+      <span class="name">{{ talent.initials }}</span>
+      <span class="role">{{ talent.role }}</span>
+    </div>
+    <p class="blind-note">{{ brand.labels.blindNote }}</p>
+  </div>
+</div>

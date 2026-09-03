@@ -1,0 +1,6 @@
+<div class="section">
+  <div class="sec-head"><span class="kicker">Overview</span><h2>概要</h2></div>
+  {% for p in talent.overviewHtml %}
+  <p class="prose">{{ p | safe }}</p>
+  {% endfor %}
+</div>

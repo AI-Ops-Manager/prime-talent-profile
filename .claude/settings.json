@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install)",
+      "Bash(npm ci)",
+      "Bash(npm run setup:*)",
+      "Bash(npm run render:*)",
+      "Bash(npm run render)",
+      "Bash(npm run preview)",
+      "Bash(npm run photo:*)",
+      "Bash(npm run check:*)",
+      "Bash(npm run check)",
+      "Bash(git status)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(ls:*)",
+      "Bash(mkdir talents/*)"
+    ]
+  }
+}

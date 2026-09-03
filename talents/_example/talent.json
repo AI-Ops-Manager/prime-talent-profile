@@ -1,0 +1,94 @@
+{
+  "$schema": "../../template/talent.schema.json",
+  "_note": "架空のサンプルです。実在の人物・企業とは関係ありません。ブランド設定の見え方を確かめるプレビュー用に使います。",
+  "initials": "T.S.",
+  "role": "Sales Ops / AI Automation Lead",
+  "issued": "2026.09",
+  "availability": "available",
+  "photo": "photo.svg",
+  "facts": {
+    "hours": "月 40h〜",
+    "hoursNote": null,
+    "rate": null,
+    "rateNote": null,
+    "start": "即日（応相談）",
+    "contract": null,
+    "workStyle": "リモート主体・週1来社可",
+    "focus": "営業事務のAI化 × 実装"
+  },
+  "overview": [
+    "中堅の産業機械商社で営業企画を8年担当し、見積・受発注・与信確認の業務フローを設計してきた。2023年からは営業DX推進室の責任者として、CRMの移行と見積作成の標準化を主導。**非エンジニアの立場で現場の業務を分解し、システム要件に落とす翻訳役**を長く務めてきた。",
+    "現在はClaude CodeとGoogle Apps Scriptで、問い合わせメールの一次仕分け、見積書の下書き生成、失注要因の週次集計を自分で作り、営業3拠点で運用している。**業務を知る人間が自分で作り、現場に定着させる**ところまで担える点が評価されている。"
+  ],
+  "coverage": {
+    "roles": ["コンサル / AI戦略設計", "プロジェクトマネジメント"],
+    "jobFields": ["営業企画 / 営業事務", "業務改善 / BPR", "バックオフィス / 事務"],
+    "industries": ["商社", "製造 / メーカー", "SaaS / IT / Web"]
+  },
+  "career": [
+    {
+      "period": "2023 — 現在",
+      "org": "産業機械商社（東証スタンダード上場）",
+      "title": "営業DX推進室 室長",
+      "note": "※社名はご面談時に開示",
+      "headline": "営業部門のCRM移行と見積業務の標準化を主導",
+      "body": "3拠点・営業80名のSalesforce移行を、計画から定着まで担当。見積テンプレートを12種から4種に統合し、作成時間を平均45分から15分に短縮した。問い合わせメールの一次仕分けと見積下書きの生成をClaude Codeで内製し、月120時間分の事務作業を減らした。"
+    },
+    {
+      "period": "2016 — 2023",
+      "org": "同社",
+      "title": "営業企画部 主任 → 課長",
+      "note": null,
+      "headline": "受発注・与信確認のフロー設計とkintone移行",
+      "body": "受発注・与信確認・売上予測の業務フローを設計し、Excel運用からkintoneへ移した。月次の売上予測の誤差を±15%から±5%に縮めた。"
+    },
+    {
+      "period": "2012 — 2016",
+      "org": "電子部品メーカー",
+      "title": "法人営業",
+      "note": null,
+      "headline": "自動車部品メーカー向けの新規開拓と既存深耕",
+      "body": "年間予算3億円の営業担当として、新規5社の口座を開設。提案資料の共通化を提案し、部門の資料作成時間を月20時間減らした。"
+    }
+  ],
+  "skills": [
+    { "group": "LLM", "level": "実務", "items": ["Claude API", "OpenAI API", "Gemini API"] },
+    { "group": "AIコーディングツール", "level": "実務", "items": ["Claude Code", "Cursor"] },
+    { "group": "業務自動化", "level": "実務", "items": ["Google Apps Script", "kintone", "Salesforce Flow"] },
+    { "group": "データ・可視化", "level": "個人開発", "items": ["BigQuery", "Looker Studio"] }
+  ],
+  "projects": [
+    {
+      "name": "問い合わせメールの一次仕分けと回答下書き",
+      "badge": "社内利用",
+      "subtitle": "Claude Codeで営業事務の一次処理を自動化",
+      "body": "代表アドレスに届く1日約60通の問い合わせを、見積依頼・納期照会・クレーム・その他に分類し、過去の回答履歴を参照した下書きをGmailに保存する仕組みを作った。担当者は確認と送信だけを行う体制にし、初動返信の平均時間を4時間から40分に短縮した。",
+      "tools": "Claude Code・Gmail API・Google Apps Script・Salesforce",
+      "featured": true
+    },
+    {
+      "name": "見積書の下書き生成と承認フローの接続",
+      "badge": "社内利用",
+      "subtitle": "見積作成の標準化と承認の自動連携",
+      "body": "商品マスタと過去の見積を参照して見積書の下書きを生成し、金額と粗利率に応じて承認者へ自動で回付する仕組みを作った。転記ミスによる差し戻しを月30件から3件に減らした。",
+      "tools": "Claude Code・kintone・Salesforce・Slack API",
+      "featured": true
+    },
+    {
+      "name": "失注要因の週次集計レポート",
+      "badge": "社内利用",
+      "subtitle": "商談メモの構造化と週次配信",
+      "body": "CRMの商談メモから失注理由を抽出して分類し、拠点別・商材別の集計を毎週月曜にSlackへ配信している。",
+      "tools": "Claude API・BigQuery・Looker Studio",
+      "featured": false
+    },
+    {
+      "name": "営業メンバー向けの生成AI活用研修",
+      "badge": "社内利用",
+      "subtitle": "自部門の業務に合わせた3回シリーズの研修と定着フォロー",
+      "body": "提案書の下書き、議事録の要約、顧客メールの返信案という3つの場面に絞った研修を営業80名に実施。研修後3か月で、週1回以上使う人の割合を2割から7割にした。",
+      "tools": "Claude・Gemini・社内ガイドライン",
+      "featured": false
+    }
+  ]
+}

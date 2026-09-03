@@ -1,0 +1,20 @@
+{# 経歴。新しい順。1ページに収まる目安は4件（本文は各3行以内） #}
+<div class="section">
+  <div class="sec-head"><span class="kicker">Career</span><h2>経歴</h2></div>
+  <div class="jobs">
+    {% for j in talent.career %}
+    <div class="job">
+      <div class="when">
+        <div class="period">{{ j.period }}</div>
+        <div class="org">{{ j.org }}</div>
+        {% if j.title %}<div class="title">{{ j.title }}</div>{% endif %}
+        {% if j.note %}<div class="note">{{ j.note }}</div>{% endif %}
+      </div>
+      <div class="what">
+        <h3>{{ j.headline }}</h3>
+        {% if j.body %}<p>{{ j.body }}</p>{% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>

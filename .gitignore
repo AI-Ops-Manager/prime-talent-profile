@@ -1,0 +1,13 @@
+node_modules/
+out/
+preview-tmp/
+.DS_Store
+
+# タレントのフォルダは talent.json だけを追跡する。写真（どんなファイル名でも）は入れない
+talents/*/*
+!talents/*/talent.json
+!talents/_example/photo.svg
+
+# preview/ は CI が更新する PNG と render.json だけを追跡する
+preview/**/profile.html
+preview/**/profile.pdf

@@ -1,0 +1,29 @@
+{
+  "$schema": "./brand.schema.json",
+  "brandName": "YOUR BRAND",
+  "companyName": "株式会社サンプル",
+  "logo": null,
+  "colors": {
+    "accent": "#1F3A5F"
+  },
+  "typography": {
+    "webFonts": true
+  },
+  "labels": {
+    "docType": "ご紹介資料",
+    "docTitle": "タレントのご紹介（ブラインド版）",
+    "confidential": "Strictly Confidential",
+    "blindNote": "氏名・ご連絡先は非公開。ご関心をいただいた場合に、実名・詳細プロフィール・ポートフォリオを開示します。経歴・実績はタレントデータベース収録の内容をそのまま掲載しています。",
+    "ctaLead": "こちらのタレントにご関心をお持ちいただけましたら",
+    "ctaBody": "実名・詳細プロフィール・ポートフォリオの開示、ご本人とのオンライン面談（30分程度）をセッティングします。稼働量・関与範囲・条件は柔軟にご相談いただけます。"
+  },
+  "defaults": {
+    "hidePhoto": false,
+    "rate": "商談時にご共有",
+    "rateNote": "条件面はご面談時にご相談ください",
+    "hoursNote": "増減ご相談可",
+    "contract": "業務委託（準委任）",
+    "start": "応相談",
+    "workStyle": "応相談"
+  }
+}

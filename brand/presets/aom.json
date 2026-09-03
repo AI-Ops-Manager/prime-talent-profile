@@ -1,0 +1,39 @@
+{
+  "$schema": "../brand.schema.json",
+  "brandName": "AI Ops Manager",
+  "companyName": "AI Ops Manager株式会社",
+  "logo": {
+    "file": "aom-logo.svg",
+    "height": "6mm",
+    "color": "original"
+  },
+  "colors": {
+    "accent": "#0000D4",
+    "accentDark": "#000099",
+    "ink": "#0A0A0A",
+    "body": "#333333",
+    "muted": "#7A7A7A",
+    "hairline": "#D1D5DC"
+  },
+  "typography": {
+    "webFonts": true
+  },
+  "labels": {
+    "docType": "ご紹介資料",
+    "docTitle": "タレントのご紹介（ブラインド版）",
+    "confidential": "Strictly Confidential",
+    "blindNote": "氏名・ご連絡先は非公開。ご関心をいただいた場合に、実名・詳細プロフィール・ポートフォリオを開示します。経歴・実績は弊社タレントベース収録の内容をそのまま掲載しています。",
+    "ctaLead": "この人材に、ご関心があれば",
+    "ctaBody": "実名・詳細プロフィール・ポートフォリオの開示、ご本人とのオンライン面談（30分程度）をセッティングします。稼働量・関与範囲・条件は柔軟にご相談いただけます。",
+    "footer": "AI Ops Manager株式会社"
+  },
+  "defaults": {
+    "hidePhoto": false,
+    "rate": null,
+    "rateNote": "手数料込",
+    "hoursNote": "増減ご相談可",
+    "contract": "業務委託（準委任）",
+    "start": "応相談",
+    "workStyle": "フルリモート主体"
+  }
+}
