@@ -13,18 +13,24 @@
 
 ## はじめかた
 
-### 1. 自社のリポジトリを作る
+画面つきの手順は [docs/setup-manual.pdf](docs/setup-manual.pdf)（セットアップ手順書・9ページ）にあります。
+Claude Code に頼む方法と、自分でコマンドを打つ方法を併記しています。
 
-GitHub でこのリポジトリの「Use this template」から自社の組織に複製します（Private のままで）。
-手元に clone して依存を入れます。Node.js 22.12 以上が必要です。
+### 1. キットを手元に持ってくる
+
+このリポジトリは公開されているので、GitHub のアカウントや招待なしで clone できます。Node.js 22.12 以上が必要です。
 
 ```bash
-git clone <自社リポジトリのURL>
-cd <リポジトリ名>
+git clone https://github.com/AI-Ops-Manager/prime-talent-profile.git
+cd prime-talent-profile
 npm install
 ```
 
+Claude Code を使うなら「https://github.com/AI-Ops-Manager/prime-talent-profile をこのフォルダに clone して npm install まで進めて」と頼めば同じことをします。
 `npm install` の途中で PDF 描画用の Chrome（約170MB）をダウンロードします。
+
+チームで設定やタレントデータを共有したい場合は、GitHub の「Use this template」で自社の組織に複製し（Private のままで）、
+その URL を clone してください。push のたびに GitHub Actions がサンプルを描き直し、この README の画像を自社の色とロゴに置き換えます。
 
 ### 2. ロゴと色を設定する
 

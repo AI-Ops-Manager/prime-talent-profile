@@ -8,7 +8,7 @@ description: 案件の要件から、Prime 向け MCP（search_talents / get_tal
 割り当てられたリストは大きくない（数名〜数十名）。網羅は難しくないので、差がつくのは
 「要件を先に固めること」と「一人ひとりを実績の記述で見ること」の2つ。印象で順位を付けない。
 
-参照: [references/search-guide.md](references/search-guide.md)（ツールの仕様と読み方）、
+参照: [references/search-guide.md](references/search-guide.md)（ツールの仕様と読み方・案件タイプ別のキーワード例）、
 [references/scoring-rubric.md](references/scoring-rubric.md)（採点軸とレポートの型）、
 `docs/selection-guide.md`（4条件と外しやすいところ）。
 
