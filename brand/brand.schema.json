@@ -75,8 +75,8 @@
         "blindNote": { "type": "string", "description": "氏名欄の下に置く非公開の断り書き" },
         "ctaLead": { "type": "string", "description": "最終ページ末尾の案内見出し" },
         "ctaBody": { "type": "string", "description": "最終ページ末尾の案内本文" },
-        "fitTitle": { "type": "string", "description": "課題の節の見出し。既定「こんな課題をお持ちの企業様に」（talent.json に fit があるときだけ出る）" },
-        "pointsTitle": { "type": "string", "description": "おすすめポイントの節の見出し。既定「おすすめポイント」（talent.json に points があるときだけ出る）" },
+        "fitTitle": { "type": "string", "description": "課題の節の見出し。既定「解決できる課題」（talent.json に fit があるときだけ出る）" },
+        "pointsTitle": { "type": "string", "description": "推薦理由の節の見出し。既定「推薦理由」（talent.json に points があるときだけ出る）" },
         "footer": { "type": "string", "description": "フッター左の表記。省略時は「{brandName}（{companyName}）」" }
       }
     },

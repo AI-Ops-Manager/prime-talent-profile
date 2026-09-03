@@ -16,8 +16,8 @@ const LABEL_DEFAULTS = {
   ctaLead: "こちらのタレントにご関心をお持ちいただけましたら",
   ctaBody:
     "実名・詳細プロフィール・ポートフォリオの開示、ご本人とのオンライン面談（30分程度）をセッティングします。稼働量・関与範囲・条件は柔軟にご相談いただけます。",
-  fitTitle: "こんな課題をお持ちの企業様に",
-  pointsTitle: "おすすめポイント",
+  fitTitle: "解決できる課題",
+  pointsTitle: "推薦理由",
 };
 
 const DEFAULTS_DEFAULTS = {

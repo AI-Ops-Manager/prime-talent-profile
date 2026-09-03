@@ -34,7 +34,7 @@ const PAGES_WITHOUT_PROJECTS = [
   ["career", "skills", "cta"],
 ];
 
-// fit（課題）/ points（おすすめポイント）があるエンド訴求型は、1ページ目を売り込みに使い、対応領域を2ページ目に送る
+// fit（解決できる課題）/ points（推薦理由）があるエンド訴求型は、1ページ目を提案に使い、対応領域を2ページ目に送る
 const PAGES_PITCH_WITH_PROJECTS = [
   ["hero", "facts", "overview", "fit", "points"],
   ["coverage", "career", "skills"],
