@@ -48,13 +48,27 @@ jobs:
           cp preview-tmp/_example/render.json preview/_example/
 
       - name: 差分をcommit & push
+        id: push
+        # 組織の設定で GITHUB_TOKEN の書き込みが禁止されていると push に失敗する。
+        # その場合はワークフローを落とさず、次のステップで Artifacts に置いて知らせる
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add preview
           if git diff --cached --quiet; then
             echo "差分なし"
+            echo "pushed=none" >> "$GITHUB_OUTPUT"
+          elif git commit -m "chore: update preview [skip ci]" && git push; then
+            echo "pushed=yes" >> "$GITHUB_OUTPUT"
           else
-            git commit -m "chore: update preview [skip ci]"
-            git push
+            echo "::warning::preview/ を push できませんでした（リポジトリまたは組織の Settings → Actions → General → Workflow permissions を Read and write にすると README の画像が自動更新されます）"
+            echo "pushed=no" >> "$GITHUB_OUTPUT"
           fi
+
+      - name: push できなかったときは Artifacts に置く
+        if: steps.push.outputs.pushed == 'no'
+        uses: actions/upload-artifact@v4
+        with:
+          name: preview
+          path: preview/
+          retention-days: 14
