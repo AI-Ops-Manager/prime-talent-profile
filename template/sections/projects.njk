@@ -1,7 +1,7 @@
 {# プロジェクト。featured=true は左の罫線で立てる（2件が目安） #}
 {% if talent.projects and talent.projects.length %}
 <div class="section">
-  <div class="sec-head"><span class="kicker">Projects</span><h2>プロジェクト</h2></div>
+  <div class="sec-head"><h2>プロジェクト</h2></div>
   <div class="projects">
     {% for p in talent.projects %}
     <div class="proj{% if p.featured %} featured{% endif %}">

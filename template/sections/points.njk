@@ -1,7 +1,7 @@
-{# 推薦理由。課題に対応する実績を数字で、各1〜2行・4点が目安。ダッシュの箇条書き。無ければ節ごと出さない #}
+{# 推薦理由。課題に対応する実績を数字で、各1〜2行・4点が目安。無ければ節ごと出さない #}
 {% if talent.pointsHtml and talent.pointsHtml.length %}
 <div class="section">
-  <div class="sec-head"><span class="kicker">Rationale</span><h2>{{ brand.labels.pointsTitle }}</h2></div>
+  <div class="sec-head"><h2>{{ brand.labels.pointsTitle }}</h2></div>
   <div class="points">
     {% for p in talent.pointsHtml %}
     <div class="item"><span>{{ p | safe }}</span></div>

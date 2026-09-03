@@ -132,14 +132,6 @@
       "body": "CRMの商談メモから失注理由を抽出して分類し、拠点別・商材別の集計を毎週月曜にSlackへ配信している。",
       "tools": "Claude API・BigQuery・Looker Studio",
       "featured": false
-    },
-    {
-      "name": "営業メンバー向けの生成AI活用研修",
-      "badge": "社内利用",
-      "subtitle": "自部門の業務に合わせた3回シリーズの研修と定着フォロー",
-      "body": "提案書の下書き、議事録の要約、顧客メールの返信案という3つの場面に絞った研修を営業80名に実施。研修後3か月で、週1回以上使う人の割合を2割から7割にした。",
-      "tools": "Claude・Gemini・社内ガイドライン",
-      "featured": false
     }
   ]
 }

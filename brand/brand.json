@@ -21,8 +21,8 @@
   },
   "defaults": {
     "hidePhoto": false,
-    "rate": "商談時にご共有",
-    "rateNote": "条件面はご面談時にご相談ください",
+    "rate": "15,000円/h〜",
+    "rateNote": "手数料込",
     "hoursNote": "増減ご相談可",
     "contract": "業務委託（準委任）",
     "start": "応相談",

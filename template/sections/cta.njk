@@ -1,11 +1,11 @@
-{# 最終ページ末尾の案内。ページ下端に寄せる #}
+{# 最終ページ末尾の案内。ブランド色の面に白文字。ロゴは色が合わないことがあるので出さず、名義と会社名を文字で #}
 <div class="cta">
   <div class="cta-text">
     <div class="lead">{{ brand.labels.ctaLead }}</div>
     <p>{{ brand.labels.ctaBody }}</p>
   </div>
   <div class="who">
-    {% if brand.logoHtml %}<span class="logo">{{ brand.logoHtml | safe }}</span>{% else %}<div class="bn">{{ brand.brandName }}</div>{% endif %}
+    <div class="bn">{{ brand.brandName }}</div>
     <div class="cn">{{ brand.companyName }}</div>
   </div>
 </div>

@@ -22,8 +22,8 @@ const LABEL_DEFAULTS = {
 
 const DEFAULTS_DEFAULTS = {
   hidePhoto: false,
-  rate: null,
-  rateNote: null,
+  rate: "15,000円/h〜",
+  rateNote: "手数料込",
   hoursNote: "増減ご相談可",
   contract: "業務委託（準委任）",
   start: "応相談",

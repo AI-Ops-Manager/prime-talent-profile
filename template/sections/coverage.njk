@@ -1,7 +1,7 @@
 {# 役割 / 職種 / 業界。空の行は scripts/lib/talent.mjs が除いている。全部空なら節ごと出さない #}
 {% if talent.coverage and talent.coverage.length %}
 <div class="section">
-  <div class="sec-head"><span class="kicker">Coverage</span><h2>対応領域</h2></div>
+  <div class="sec-head"><h2>対応領域</h2></div>
   <div class="cov">
     {% for row in talent.coverage %}
     <div class="lbl">{{ row.label }}</div>

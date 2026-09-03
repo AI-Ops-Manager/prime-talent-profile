@@ -34,16 +34,19 @@ const PAGES_WITHOUT_PROJECTS = [
   ["career", "skills", "cta"],
 ];
 
-// fit（解決できる課題）/ points（推薦理由）があるエンド訴求型は、1ページ目を提案に使い、対応領域を2ページ目に送る
+// fit（解決できる課題）/ points（推薦理由）がある提案型は、2ページ目の先頭に課題→推薦理由を置く
+// （1ページ目に詰め込むと本文を小さくするしかなく、読みにくくなるため）。
+// 1ページ目は概要を1段落にしてスキルまで載せ、対応領域は3ページ目の先頭（プロジェクトの前）に回す
 const PAGES_PITCH_WITH_PROJECTS = [
-  ["hero", "facts", "overview", "fit", "points"],
-  ["coverage", "career", "skills"],
-  ["projects", "cta"],
+  ["hero", "facts", "overview", "skills"],
+  ["fit", "points", "career"],
+  ["coverage", "projects", "cta"],
 ];
 
 const PAGES_PITCH_WITHOUT_PROJECTS = [
-  ["hero", "facts", "overview", "fit", "points"],
-  ["coverage", "career", "skills", "cta"],
+  ["hero", "facts", "overview", "skills"],
+  ["fit", "points", "career"],
+  ["coverage", "cta"],
 ];
 
 function defaultPages({ pitch, hasProjects }) {

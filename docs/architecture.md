@@ -102,16 +102,17 @@ slug は `英数字 _ - .` だけ（`..` を含まない）。`_` で始まる s
   SVG は XML 宣言・コメント・`width`/`height` 属性を除き、`viewBox` が無ければ補う。`logo.color` が `accent` / `ink` のときは
   SVG 中の `currentColor` を `accentText` / `ink` の HEX に置換してから埋め込む（`original` は無加工）。`logo` が null なら null。
 - `facts`: 順序は 稼働目安 / 参考単価 / 稼働開始 / 契約形態 / 勤務スタイル / 希望領域。
-  talent 側が null のセルは `brand.defaults` で埋める。参考単価はどちらも null なら「別途ご案内」、
+  talent 側が null のセルは `brand.defaults` で埋める。参考単価の既定は「15,000円/h〜」（注記「手数料込」）で、
+  `brand.defaults.rate` を null にすると「別途ご案内」、
   稼働目安は null なら「応相談」、希望領域は null なら「ご面談時にご相談」。
 - `photoSrc`: `talent.photo` のファイルがあり、拡張子が jpg/jpeg/png/webp/svg で、かつ `brand.defaults.hidePhoto` が false のときだけ data URI。
   `photo` を指定しているのにファイルが無い・形式が違うときは `warnings` に入れて（無言で落とさない）イニシャル枠にする。
 - `overviewHtml`: HTMLエスケープ後に `**x**` → `<b>x</b>`、改行 → `<br>`。
 - `pages`: `talent.layout.pages` があればそれ。無ければ projects が1件以上で3ページ、0件なら
   `[["hero","facts","overview","coverage"],["career","skills","cta"]]` の2ページ。
-  `fit` か `points` が1件以上あるエンド訴求型は、1ページ目を `hero, facts, overview, fit, points`、2ページ目を
-  `coverage, career, skills` にする（projects が無ければ2ページ目末尾に cta）。5節以上を載せるページには
-  テンプレートが `dense` クラスを付け、縦の間隔を少し詰める。
+  `fit` か `points` が1件以上ある提案型は、1ページ目を `hero, facts, overview, skills`、2ページ目を `fit, points, career`、
+  3ページ目を `coverage, projects, cta` にする（projects が無ければ3ページ目は `coverage, cta`）。
+  5節以上を載せるページにはテンプレートが `dense` クラスを付け、縦の間隔を少し詰める（本文の大きさは変えない）。
 - `issued` 省略時は生成日の `YYYY.MM`（JST）。`meta.year` は `issued` の年（現状テンプレートは `meta.total` だけ使う）。
 
 ## はみ出し検知

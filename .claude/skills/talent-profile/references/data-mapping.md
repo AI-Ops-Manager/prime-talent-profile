@@ -79,7 +79,7 @@
 | programming_language / frontend / backend | 開発 |
 | infrastructure / cloud / database | インフラ・バージョン管理 |
 
-`level` は `proficiency` から: professional → 「実務」、personal → 「個人開発」。混在するグループは多い方。
+`level` は `proficiency` から: professional / advanced / intermediate → 「実務」、personal → 「個人開発」。混在するグループは多い方。
 1グループのタグは4つまで。多ければ案件に近いものを残す。
 
 ## プロジェクト（`projects`）

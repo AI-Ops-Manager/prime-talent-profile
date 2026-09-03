@@ -1,10 +1,10 @@
-{# 解決できる課題。読み手の状況を客観の文で各1行・3点が目安。番号付きの罫線リスト。無ければ節ごと出さない #}
+{# 解決できる課題。読み手企業の状況を客観の文で各1行・3点が目安。無ければ節ごと出さない #}
 {% if talent.fitHtml and talent.fitHtml.length %}
 <div class="section">
-  <div class="sec-head"><span class="kicker">Challenges</span><h2>{{ brand.labels.fitTitle }}</h2></div>
+  <div class="sec-head"><h2>{{ brand.labels.fitTitle }}</h2></div>
   <div class="fit">
     {% for f in talent.fitHtml %}
-    <div class="item"><span class="no">{% if loop.index < 10 %}0{% endif %}{{ loop.index }}</span><span>{{ f | safe }}</span></div>
+    <div class="item"><span>{{ f | safe }}</span></div>
     {% endfor %}
   </div>
 </div>

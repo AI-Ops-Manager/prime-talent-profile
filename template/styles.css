@@ -1,8 +1,9 @@
 /*
   タレントプロフィール（ブラインド版）の組版。
-  方針: 白い紙・細い罫線・黒に近い文字。ブランド色は小さなラベルと数本の罫線にだけ使う。
-  基準値（フォントサイズ・余白）は docs/design.md に理由付きで書いてある。溢れたら文章を削る。
-  色はすべて CSS 変数（profile.njk の :root で brand.json から注入）。ここに色コードを直書きしない。
+  方針: 読みやすさを最優先にした一枚の書類。ヒラギノ角ゴ（無ければ Noto Sans JP）、本文11〜11.5pt、
+  区切りは面（薄い灰色・ブランド淡色の面）と細い罫線で、飾りは置かない。
+  ブランド色を使う場所は4つだけ: 見出しの印（■）、肩書きと「稼働可能」、代表プロジェクトの左罫線、最終ページの案内面。
+  基準値と理由は docs/design.md。溢れたら文章を削る。色コードは直書きしない（profile.njk の :root から受ける）。
 */
 
 @page { size: A4; margin: 0; }
@@ -16,10 +17,11 @@
 }
 
 :root {
-  --font-sans: "Noto Sans JP", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans CJK JP", "Yu Gothic Medium", "Meiryo", sans-serif;
-  --font-serif: "EB Garamond", "Hiragino Mincho ProN", "Noto Serif CJK JP", Georgia, "Times New Roman", serif;
-  --rule-strong: color-mix(in srgb, var(--ink) 55%, var(--paper));
-  --page-x: 18mm;
+  --font-sans: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Noto Sans CJK JP", "Yu Gothic Medium", "Meiryo", sans-serif;
+  --font-latin: "Helvetica Neue", Helvetica, Arial, "Noto Sans JP", sans-serif;
+  --panel: color-mix(in srgb, var(--ink) 4%, var(--paper));
+  --rule: color-mix(in srgb, var(--ink) 12%, var(--paper));
+  --page-x: 16mm;
 }
 
 html, body { background: var(--paper); }
@@ -37,7 +39,7 @@ body {
 .page {
   width: 210mm;
   height: 296mm;
-  padding: 14mm var(--page-x) 17mm;
+  padding: 13mm var(--page-x) 16mm;
   position: relative;
   overflow: hidden;
   break-after: page;
@@ -50,82 +52,66 @@ body {
 
 /* ---------- ヘッダー ---------- */
 .head {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 6mm;
-  padding-bottom: 3mm;
-  border-bottom: 0.25mm solid var(--rule-strong);
+  padding-bottom: 3.5mm;
+  border-bottom: 0.25mm solid var(--rule);
 }
 .head-l { display: flex; align-items: center; min-height: 7mm; }
 .logo { display: inline-flex; align-items: center; }
 .logo svg, .logo img { height: var(--logo-h); width: auto; display: block; }
 .brandtext {
-  font-family: var(--font-serif);
-  font-size: 12.5pt;
-  font-weight: 600;
-  letter-spacing: 0.03em;
+  font-family: var(--font-latin);
+  font-size: 12pt;
+  font-weight: 700;
+  letter-spacing: 0.06em;
   color: var(--ink);
-  white-space: nowrap;
-}
-.head-c {
-  text-align: center;
-  font-size: 8.5pt;
-  letter-spacing: 0.16em;
-  color: var(--muted);
   white-space: nowrap;
 }
 .head-r {
   display: flex;
   align-items: center;
-  gap: 2.4mm;
-  font-size: 8.5pt;
-  letter-spacing: 0.08em;
+  gap: 2.5mm;
+  font-size: 9pt;
+  letter-spacing: 0.06em;
   color: var(--muted);
   white-space: nowrap;
 }
-.head-r .num { font-family: var(--font-serif); font-size: 10pt; letter-spacing: 0.04em; color: var(--ink); font-variant-numeric: lining-nums; }
-.head-r .sep { width: 0.25mm; height: 3mm; background: var(--hairline); flex: none; }
-/* 2ページ目以降の肩書きが長いときは末尾を省略する（横にはみ出さない） */
-.head-r .trunc { max-width: 84mm; overflow: hidden; text-overflow: ellipsis; }
+.head-r .num { font-family: var(--font-latin); font-weight: 600; color: var(--body); }
+.head-r .sep { width: 0.25mm; height: 3mm; background: var(--rule); flex: none; }
+.head-r .trunc { max-width: 90mm; overflow: hidden; text-overflow: ellipsis; }
 
 /* ---------- フッター ---------- */
 .foot {
   position: absolute;
   left: var(--page-x);
   right: var(--page-x);
-  bottom: 9mm;
+  bottom: 8.5mm;
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  font-size: 7.5pt;
-  letter-spacing: 0.1em;
+  font-size: 8pt;
+  letter-spacing: 0.06em;
   color: var(--muted);
 }
-.foot .pg {
-  font-family: var(--font-serif);
-  font-size: 9pt;
-  color: var(--ink);
-  margin-left: 4mm;
-  font-variant-numeric: lining-nums;
-  letter-spacing: 0.06em;
-}
+.foot .pg { font-family: var(--font-latin); font-weight: 600; color: var(--body); margin-left: 4mm; }
 
 /* ---------- 氏名ブロック ---------- */
 .hero {
   display: grid;
-  grid-template-columns: 36mm 1fr;
+  grid-template-columns: 38mm 1fr;
   gap: 8mm;
   align-items: start;
-  margin-top: 9mm;
+  margin-top: 8mm;
 }
 .photo {
-  width: 36mm;
-  height: 45mm;
+  width: 38mm;
+  height: 46mm;
   object-fit: cover;
   display: block;
-  border: 0.25mm solid var(--hairline);
-  border-radius: 0.8mm;
+  border: 0.25mm solid var(--rule);
+  border-radius: 2mm;
 }
 .photo.blank {
   display: flex;
@@ -134,245 +120,178 @@ body {
   background: var(--tint);
   border-color: transparent;
   color: var(--accent-text);
-  font-family: var(--font-serif);
-  font-size: 21pt;
-  letter-spacing: 0.06em;
+  font-family: var(--font-latin);
+  font-size: 22pt;
+  font-weight: 700;
+  letter-spacing: 0.04em;
 }
-.hero-main { display: flex; flex-direction: column; gap: 3mm; padding-top: 0.5mm; }
+.hero-main { display: flex; flex-direction: column; gap: 3.2mm; padding-top: 1mm; }
 
-.tags { display: flex; flex-wrap: wrap; gap: 1.6mm 1.8mm; }
+.tags { display: flex; flex-wrap: wrap; gap: 2mm; }
 .tag {
   display: inline-block;
-  border: 0.25mm solid var(--hairline);
-  border-radius: 0.6mm;
-  padding: 0.7mm 2.4mm;
-  font-size: 9pt;
-  line-height: 1.55;
+  border: 0.25mm solid var(--rule);
+  border-radius: 1mm;
+  padding: 1mm 3mm;
+  font-size: 10pt;
+  font-weight: 500;
+  line-height: 1.5;
   color: var(--body);
-  letter-spacing: 0.02em;
   white-space: nowrap;
 }
-.tag.status {
-  border-color: var(--accent-text);
-  color: var(--accent-text);
-  font-weight: 500;
-}
+.tag.status { background: var(--accent-text); border-color: var(--accent-text); color: #fff; font-weight: 600; }
 
 .name-row { display: flex; align-items: baseline; gap: 5mm; flex-wrap: wrap; }
 .name {
-  font-family: var(--font-serif);
+  font-family: var(--font-latin);
   font-size: 30pt;
-  font-weight: 500;
-  letter-spacing: 0.02em;
+  font-weight: 700;
+  letter-spacing: 0.01em;
   line-height: 1;
   color: var(--ink);
-  font-variant-numeric: lining-nums;
 }
-.role {
-  font-size: 12pt;
-  font-weight: 500;
-  letter-spacing: 0.03em;
-  color: var(--accent-text);
-}
-.blind-note { font-size: 9pt; line-height: 1.75; color: var(--muted); }
+.role { font-size: 13.5pt; font-weight: 700; color: var(--accent-text); letter-spacing: 0.01em; }
+.blind-note { font-size: 9.5pt; line-height: 1.75; color: var(--muted); }
 
-/* ---------- 基本情報（表） ---------- */
+/* ---------- 基本情報（面） ---------- */
 .facts {
-  margin-top: 8mm;
+  margin-top: 7mm;
+  background: var(--panel);
+  border-radius: 2mm;
+  padding: 5.5mm 7mm;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  border-top: 0.4mm solid var(--ink);
-  border-bottom: 0.25mm solid var(--rule-strong);
+  gap: 5mm 6mm;
 }
-.fact {
-  padding: 4mm 4mm 4mm 0;
-  border-bottom: 0.2mm solid var(--hairline);
-}
-.fact:nth-child(n + 4) { border-bottom: none; }
-.fact:nth-child(3n) { padding-right: 0; }
-.fact .k { font-size: 8pt; letter-spacing: 0.14em; color: var(--muted); margin-bottom: 1.4mm; }
-.fact .v { font-size: 12pt; font-weight: 600; color: var(--ink); line-height: 1.45; }
-.fact .note { font-size: 8.5pt; color: var(--muted); margin-top: 1mm; line-height: 1.5; }
+.fact .k { font-size: 9pt; color: var(--muted); letter-spacing: 0.06em; margin-bottom: 1.2mm; }
+.fact .v { font-size: 12.5pt; font-weight: 700; color: var(--ink); line-height: 1.4; }
+.fact .note { font-size: 9.5pt; color: var(--muted); margin-top: 0.8mm; line-height: 1.5; }
 
-/* ---------- セクション見出し ---------- */
+/* ---------- 節の見出し ---------- */
 .section { margin-top: 9mm; }
-.body > .section:first-child { margin-top: 9mm; }
-.sec-head {
-  display: flex;
-  align-items: baseline;
-  gap: 3.2mm;
-  padding-bottom: 2mm;
-  margin-bottom: 4.5mm;
-  border-bottom: 0.25mm solid var(--rule-strong);
-  position: relative;
-}
-.sec-head::after {
+.body > .section:first-child { margin-top: 8mm; }
+.sec-head { display: flex; align-items: center; gap: 3mm; margin-bottom: 4.5mm; }
+.sec-head::before {
   content: "";
-  position: absolute;
-  left: 0;
-  bottom: -0.25mm;
-  width: 14mm;
-  height: 0.7mm;
+  width: 3.2mm;
+  height: 3.2mm;
+  border-radius: 0.8mm;
   background: var(--accent);
+  flex: none;
 }
-.sec-head .kicker {
-  font-family: var(--font-serif);
-  font-size: 8.5pt;
-  font-weight: 500;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--accent-text);
-}
-.sec-head h2 { font-size: 12pt; font-weight: 700; letter-spacing: 0.06em; color: var(--ink); }
+.sec-head h2 { font-size: 14pt; font-weight: 700; letter-spacing: 0.04em; color: var(--ink); }
 
 /* ---------- 概要 ---------- */
-.prose { font-size: 11pt; line-height: 1.9; color: var(--body); text-align: justify; }
-.prose + .prose { margin-top: 3mm; }
-.prose b { font-weight: 600; color: var(--ink); }
+.prose { font-size: 11.5pt; line-height: 1.85; color: var(--body); }
+.prose + .prose { margin-top: 2.6mm; }
+.prose b { font-weight: 700; color: var(--ink); }
 
-/* ---------- 解決できる課題（番号付きの罫線リスト） ---------- */
-.fit { display: flex; flex-direction: column; }
+/* ---------- 解決できる課題（ブランド淡色の面） ---------- */
+.fit {
+  background: var(--tint);
+  border-radius: 2mm;
+  padding: 4.5mm 7mm;
+  display: flex;
+  flex-direction: column;
+  gap: 2.4mm;
+}
 .fit .item {
   display: grid;
-  grid-template-columns: 9mm 1fr;
-  column-gap: 3mm;
-  align-items: baseline;
-  padding: 2.4mm 0;
-  border-top: 0.2mm solid var(--hairline);
-  font-size: 10.5pt;
-  line-height: 1.65;
-  font-weight: 500;
-  color: var(--ink);
-}
-.fit .item:first-child { border-top: none; padding-top: 0.6mm; }
-.fit .no {
-  font-family: var(--font-serif);
-  font-size: 10.5pt;
-  letter-spacing: 0.08em;
-  color: var(--accent-text);
-  font-variant-numeric: lining-nums tabular-nums;
-}
-.fit .item b { font-weight: 700; }
-
-/* ---------- 推薦理由（ダッシュの箇条書き） ---------- */
-.points { display: flex; flex-direction: column; gap: 2.4mm; }
-.points .item {
-  display: grid;
-  grid-template-columns: 4mm 1fr;
+  grid-template-columns: 2.2mm 1fr;
   column-gap: 3mm;
   align-items: start;
-  font-size: 10.5pt;
-  line-height: 1.7;
-  color: var(--body);
-  text-align: justify;
+  font-size: 11pt;
+  font-weight: 600;
+  line-height: 1.65;
+  color: var(--ink);
 }
-.points .item::before { content: ""; width: 3mm; height: 0.3mm; background: var(--ink); margin-top: 3mm; }
-.points .item b { font-weight: 600; color: var(--ink); }
+.fit .item::before { content: ""; width: 2.2mm; height: 2.2mm; border-radius: 0.5mm; background: var(--accent); margin-top: 2.2mm; }
 
-/* 5節以上を載せるページ（エンド訴求型の1ページ目）は縦の間隔と本文を一段詰める。
-   下限は docs/design.md の基準（本文10pt）。ここより下げず、入らなければ文章を削る */
-.dense .hero { margin-top: 7mm; }
-.dense .photo { height: 42mm; }
-.dense .facts { margin-top: 6mm; }
-.dense .fact { padding: 3.4mm 4mm 3.4mm 0; }
-.dense .section { margin-top: 6mm; }
-.dense .body > .section:first-child { margin-top: 6.5mm; }
-.dense .sec-head { margin-bottom: 3.2mm; }
-.dense .prose { font-size: 10.5pt; line-height: 1.8; }
-.dense .fit .item { padding: 2mm 0; font-size: 10pt; line-height: 1.6; }
-.dense .fit .item:first-child { padding-top: 0.4mm; }
-.dense .fit .no { font-size: 10pt; }
-.dense .points { gap: 2mm; }
-.dense .points .item { font-size: 10pt; line-height: 1.65; }
-.dense .points .item::before { margin-top: 2.8mm; }
+/* ---------- 推薦理由 ---------- */
+.points { display: flex; flex-direction: column; gap: 3mm; }
+.points .item {
+  display: grid;
+  grid-template-columns: 2.2mm 1fr;
+  column-gap: 3mm;
+  align-items: start;
+  font-size: 11pt;
+  line-height: 1.75;
+  color: var(--body);
+}
+.points .item::before { content: ""; width: 2.2mm; height: 2.2mm; border-radius: 0.5mm; background: var(--accent); margin-top: 2.6mm; }
+.points .item b { font-weight: 700; color: var(--ink); }
 
 /* ---------- 対応領域 ---------- */
 .cov {
   display: grid;
-  grid-template-columns: 16mm 1fr;
-  row-gap: 3mm;
+  grid-template-columns: 18mm 1fr;
+  row-gap: 3.2mm;
   column-gap: 4mm;
   align-items: baseline;
 }
-.cov .lbl { font-size: 8.5pt; color: var(--muted); letter-spacing: 0.12em; }
+.cov .lbl { font-size: 10pt; font-weight: 700; color: var(--muted); letter-spacing: 0.06em; }
 
 /* ---------- 経歴 ---------- */
 .job {
   display: grid;
-  grid-template-columns: 40mm 1fr;
-  gap: 6mm;
+  grid-template-columns: 38mm 1fr;
+  gap: 7mm;
   padding: 4.2mm 0 4.6mm;
-  border-bottom: 0.2mm solid var(--hairline);
+  border-bottom: 0.25mm solid var(--rule);
 }
 .job:first-child { padding-top: 0.5mm; }
 .job:last-child { border-bottom: none; }
-.job .period {
-  font-family: var(--font-serif);
-  font-size: 13pt;
-  font-weight: 500;
-  color: var(--ink);
-  letter-spacing: 0.03em;
-  font-variant-numeric: lining-nums;
-  line-height: 1.3;
-}
-.job .org { font-size: 9.5pt; color: var(--body); margin-top: 1.4mm; line-height: 1.55; }
-.job .title { font-size: 9pt; color: var(--muted); line-height: 1.5; margin-top: 0.3mm; }
-.job .note { font-size: 7.8pt; color: var(--muted); margin-top: 0.9mm; }
-.job h3 { font-size: 12pt; font-weight: 700; color: var(--ink); margin-bottom: 1.6mm; line-height: 1.5; }
-.job p { font-size: 10.5pt; line-height: 1.8; color: var(--body); text-align: justify; }
+.job .period { font-family: var(--font-latin); font-size: 12.5pt; font-weight: 700; color: var(--ink); line-height: 1.3; }
+.job .org { font-size: 10pt; color: var(--body); margin-top: 1.4mm; line-height: 1.55; }
+.job .title { font-size: 9.5pt; color: var(--muted); line-height: 1.5; margin-top: 0.3mm; }
+.job .note { font-size: 8.5pt; color: var(--muted); margin-top: 1mm; }
+.job h3 { font-size: 13pt; font-weight: 700; color: var(--ink); margin-bottom: 1.6mm; line-height: 1.5; }
+.job p { font-size: 11pt; line-height: 1.75; color: var(--body); }
 
-/* ---------- スキル ---------- */
-.skills { display: grid; grid-template-columns: 1fr 1fr; column-gap: 8mm; }
+/* ---------- スキル（対応領域と同じ行の形。分類名｜タグ） ---------- */
+.skills { display: flex; flex-direction: column; gap: 3.2mm; }
 .skill {
-  padding: 3.4mm 0 3.6mm;
-  border-top: 0.2mm solid var(--hairline);
-  display: flex;
-  flex-direction: column;
-  gap: 1.8mm;
+  display: grid;
+  grid-template-columns: 40mm 1fr;
+  column-gap: 4mm;
+  align-items: baseline;
 }
-/* 罫線は2行目以降の上に引く。件数が奇数でも左右が揃う */
-.skill:nth-child(-n + 2) { border-top: none; padding-top: 0.5mm; }
-.skill .g { display: flex; align-items: baseline; gap: 2.4mm; }
-.skill .gname { font-size: 11pt; font-weight: 700; color: var(--ink); }
-.skill .lvl {
-  font-size: 7.5pt;
-  letter-spacing: 0.1em;
-  color: var(--accent-text);
-  border: 0.25mm solid currentColor;
-  border-radius: 0.6mm;
-  padding: 0.2mm 1.6mm;
-  line-height: 1.5;
-}
+.skill .g { display: flex; flex-direction: column; gap: 0.4mm; }
+.skill .gname { font-size: 10.5pt; font-weight: 700; color: var(--ink); line-height: 1.4; }
+.skill .lvl { font-size: 8.5pt; color: var(--muted); }
 
 /* ---------- プロジェクト ---------- */
-.proj {
-  padding: 3.8mm 0 4.2mm;
-  border-bottom: 0.2mm solid var(--hairline);
-}
+.proj { padding: 4mm 0 4.4mm; border-bottom: 0.25mm solid var(--rule); }
 .proj:last-child { border-bottom: none; }
-.proj.featured { padding-left: 4.5mm; border-left: 0.7mm solid var(--accent); }
+.proj.featured { padding-left: 5mm; border-left: 1.2mm solid var(--accent); }
 .proj .ph { display: flex; justify-content: space-between; align-items: baseline; gap: 4mm; }
-.proj .pname { font-size: 12pt; font-weight: 700; color: var(--ink); line-height: 1.5; }
-.proj .badge { font-size: 7.5pt; letter-spacing: 0.12em; color: var(--accent-text); white-space: nowrap; }
-.proj .sub { font-size: 9.5pt; color: var(--muted); margin-top: 0.6mm; }
-.proj p { font-size: 10.5pt; line-height: 1.8; color: var(--body); margin-top: 1.8mm; text-align: justify; }
-.proj .tools { font-size: 9pt; color: var(--muted); margin-top: 1.6mm; line-height: 1.6; }
-.proj .tools b { font-weight: 500; color: var(--body); }
+.proj .pname { font-size: 13pt; font-weight: 700; color: var(--ink); line-height: 1.5; }
+.proj .badge { font-size: 9pt; font-weight: 600; color: var(--accent-text); white-space: nowrap; }
+.proj .sub { font-size: 10pt; color: var(--muted); margin-top: 0.6mm; }
+.proj p { font-size: 11pt; line-height: 1.7; color: var(--body); margin-top: 1.8mm; }
+.proj .tools { font-size: 9.5pt; color: var(--muted); margin-top: 1.6mm; line-height: 1.6; }
+.proj .tools b { font-weight: 600; color: var(--body); }
 
-/* ---------- 案内（最終ページ末尾） ---------- */
+/* ---------- 案内（最終ページ末尾・ブランド色の面） ---------- */
 .cta {
   margin-top: auto;
-  padding: 5mm 0 5.2mm;
-  border-top: 0.7mm solid var(--accent);
-  border-bottom: 0.25mm solid var(--rule-strong);
+  background: var(--accent-text);
+  color: #fff;
+  border-radius: 2mm;
+  padding: 5.5mm 8mm;
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 10mm;
   align-items: center;
 }
-.cta .lead { font-size: 12pt; font-weight: 700; color: var(--ink); margin-bottom: 1.6mm; }
-.cta p { font-size: 10pt; line-height: 1.75; color: var(--body); }
-.cta .who { text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 1.2mm; }
-.cta .who .logo svg, .cta .who .logo img { height: 7.5mm; }
-.cta .who .bn { font-family: var(--font-serif); font-size: 14pt; font-weight: 600; color: var(--ink); letter-spacing: 0.02em; }
-.cta .who .cn { font-size: 8.5pt; color: var(--muted); letter-spacing: 0.06em; }
+.cta .lead { font-size: 13pt; font-weight: 700; margin-bottom: 1.6mm; }
+.cta p { font-size: 10.5pt; line-height: 1.7; color: rgba(255, 255, 255, 0.9); }
+.cta .who { text-align: right; }
+.cta .who .bn { font-family: var(--font-latin); font-size: 14pt; font-weight: 700; white-space: nowrap; }
+.cta .who .cn { font-size: 9.5pt; margin-top: 1mm; color: rgba(255, 255, 255, 0.85); white-space: nowrap; }
+
+/* 5節以上を載せるページ（layout.pages を手で組んだとき）は間隔だけ少し詰める。本文の大きさは変えない */
+.dense .section { margin-top: 7mm; }
+.dense .sec-head { margin-bottom: 3.6mm; }
+.dense .hero { margin-top: 7mm; }
+.dense .facts { margin-top: 6mm; }
