@@ -1,4 +1,5 @@
-/* letterhead: 紙の上端に細い色帯。本文は黒と罫線、見出しは太い下線 */
+/* letterhead（既定）: 紙の上端に細い色帯。本文は黒と罫線、見出しは太い下線。
+   ブランド色は上端の色帯と、課題・推薦理由の点だけ。案内は黒の面に白文字 */
 body.theme-letterhead .page::before { content: ""; position: absolute; left: 0; top: 0; right: 0; height: 1.6mm; background: var(--accent); }
 body.theme-letterhead .sec-head { padding-bottom: 1.8mm; border-bottom: 0.4mm solid var(--ink); }
 body.theme-letterhead .sec-head::before { display: none; }
@@ -8,7 +9,9 @@ body.theme-letterhead .tag.status { background: transparent; border-color: var(-
 body.theme-letterhead .photo { border-radius: 0.6mm; }
 body.theme-letterhead .facts { background: transparent; border-radius: 0; padding: 4.5mm 0; border-top: 0.25mm solid var(--rule); border-bottom: 0.25mm solid var(--rule); gap: 4.5mm 6mm; }
 body.theme-letterhead .fit { background: var(--panel); border-radius: 0; }
+/* 代表プロジェクトは左罫線ではなく「代表」のラベルで示す（罫線は気づかれにくい） */
+body.theme-letterhead .proj.featured { padding-left: 0; border-left: none; }
 body.theme-letterhead .proj .badge { color: var(--muted); }
-body.theme-letterhead .cta { background: transparent; color: var(--ink); border-radius: 0; border-top: 0.4mm solid var(--ink); border-bottom: 0.25mm solid var(--rule); padding: 5mm 0; }
-body.theme-letterhead .cta p { color: var(--body); }
-body.theme-letterhead .cta .who .cn { color: var(--muted); }
+body.theme-letterhead .cta { background: var(--ink); color: #fff; border-radius: 0; padding: 4.5mm 8mm; }
+body.theme-letterhead .cta p { color: rgba(255, 255, 255, 0.88); }
+body.theme-letterhead .cta .who .cn { color: rgba(255, 255, 255, 0.8); }

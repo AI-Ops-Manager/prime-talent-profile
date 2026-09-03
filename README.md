@@ -39,6 +39,8 @@ npm run setup
 
 ロゴは SVG が最もきれいに出ます（svg / png / jpg / webp に対応）。PNG の場合は背景が透過で、横幅が 800px 以上あるものを使ってください。
 色は1色だけ決めれば足ります。文字色・罫線色は既定値があり、キーカラーが明るすぎて読めない場合は文字用に自動で暗くします。
+既定の見た目は「上端に細い色帯、あとは黒と罫線」（`theme: "letterhead"`）です。面で区切る `panel`、黒一色の `mono` などにも
+`brand.json` の `theme` で切り替えられます（[docs/design.md](docs/design.md)）。
 細かく調整したいときは `brand/brand.json` を直接編集します（項目の説明は `brand/brand.schema.json`）。
 
 設定を commit して push すると、GitHub Actions がサンプルを描き直し、この README の画像を更新します。

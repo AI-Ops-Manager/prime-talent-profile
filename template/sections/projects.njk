@@ -6,7 +6,7 @@
     {% for p in talent.projects %}
     <div class="proj{% if p.featured %} featured{% endif %}">
       <div class="ph">
-        <span class="pname">{{ p.name }}</span>
+        <span class="pname">{% if p.featured %}<span class="ptag">代表</span>{% endif %}{{ p.name }}</span>
         {% if p.badge %}<span class="badge">{{ p.badge }}</span>{% endif %}
       </div>
       {% if p.subtitle %}<div class="sub">{{ p.subtitle }}</div>{% endif %}

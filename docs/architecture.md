@@ -24,7 +24,8 @@ talents/<slug>/talent.json ─┘                                               
 | `talents/<slug>/<写真>` | 顔写真。`talent.json` 以外は git 管理外（`.gitignore` の `talents/*/*`） |
 | `template/profile.njk` | Nunjucksテンプレート。ページ→セクションの順に組む |
 | `template/sections/*.njk` | セクション単位の部品（hero / facts / overview / fit / points / coverage / career / skills / projects / cta） |
-| `template/styles.css` | 組版。ブランド色はCSS変数で受ける |
+| `template/styles.css` | 組版の基本。ブランド色はCSS変数で受ける |
+| `template/themes/*.css` | 色と面の使い方の差分（letterhead が既定。panel / classic / rule / mono） |
 | `scripts/` | CLI群（下記） |
 | `out/<slug>/` | 生成物（git管理外） |
 | `preview/_example/` | サンプル `_example` の描画結果（PNG と render.json だけ追跡。CIが更新する） |
@@ -38,7 +39,7 @@ slug は `英数字 _ - .` だけ（`..` を含まない）。`_` で始まる s
 | コマンド | 実体 | やること |
 |---|---|---|
 | `setup` | `scripts/setup-brand.mjs` | 対話でブランド名・会社名・キーカラー・ロゴ・写真の扱いを聞き、`brand/brand.json` を書き、プレビューを描く。`--preset <name>` で `brand/presets/<name>.json` を土台にする。preset 指定が無く既存の `brand.json` があれば**それを土台にして名義・色・ロゴだけ置き換える**（手で直した `labels` / `defaults` は残る）。`--non-interactive --name .. --company .. --accent .. [--logo path] [--hide-photo] [--deliver-dir path] [--mcp-url url|tenant] [--no-preview]` でも動く。ロゴは svg / png / jpg / webp のみ受け付け、`brand/` にコピーする。PDF の保存先は `local.config.json` に、MCP の接続先は `.mcp.json` に書く |
-| `render` | `scripts/render.mjs` | `<slug>...` または `--all`（`_` `.` 始まりを除く全フォルダ）。`out/<slug>/profile.html` `profile.pdf` `p-N.png` `render.json` を作り、仕上がった PDF を保存先に `タレントプロフィール_<INITIALS>_ブラインド版.pdf` として複製する。`--brand <file>` で別のブランド設定、`--out <dir>` で作業出力先の変更、`--deliver <dir>` で今回だけ保存先を変更、`--no-deliver` で保存しない、`--no-png` でPNG省略、`--scale 1.5` でPNG解像度、`--allow-overflow` ではみ出しがあっても終了コード0 |
+| `render` | `scripts/render.mjs` | `<slug>...` または `--all`（`_` `.` 始まりを除く全フォルダ）。`out/<slug>/profile.html` `profile.pdf` `p-N.png` `render.json` を作り、仕上がった PDF を保存先に `タレントプロフィール_<INITIALS>_ブラインド版.pdf` として複製する。`--brand <file>` で別のブランド設定、`--theme <name>` で見た目の切り替え（brand.json の theme より優先）、`--out <dir>` で作業出力先の変更、`--deliver <dir>` で今回だけ保存先を変更、`--no-deliver` で保存しない、`--no-png` でPNG省略、`--scale 1.5` でPNG解像度、`--allow-overflow` ではみ出しがあっても終了コード0 |
 | `preview` | `render.mjs _example --out preview` | ブランド反映の確認用。`preview/_example/` に出る |
 | `photo` | `scripts/photo.mjs` | `<slug> <url>`（http/https のみ・20MBまで）で写真を `talents/<slug>/photo.<ext>` に保存し、`talent.json` の `photo` を埋める |
 | `check` | `scripts/check.mjs` | スキーマ検証、個人情報らしき文字列の検出、写真ファイルの存在確認、ブランド未設定の警告。`[slug...]` 省略時は全件。`--brand-only` で brand.json だけ |
@@ -70,6 +71,7 @@ slug は `英数字 _ - .` だけ（`..` を含まない）。`_` で始まる s
     colors: { accent, accentDark, accentText, tint, ink, body, muted, hairline, paper },
     labels: { docType, docTitle, confidential, blindNote, ctaLead, ctaBody, footer },
     typography: { webFonts: true },
+    theme: "letterhead",   // body の class になる。template/themes/<theme>.css が基本CSSに足される
     defaults: { ... }  // talent.mjs が既定値の解決に使う。テンプレートは参照しない
   },
   talent: {

@@ -175,7 +175,7 @@ export function loadBrand(file) {
   const typography = {
     webFonts: raw.typography?.webFonts ?? true,
   };
-  const theme = raw.theme ?? "panel";
+  const theme = raw.theme ?? "letterhead";
 
   const logoHeight = raw.logo?.height ?? "7mm";
   const logoHtml = raw.logo ? resolveLogoHtml(raw.logo, colors, brandName, path.dirname(brandPath)) : null;

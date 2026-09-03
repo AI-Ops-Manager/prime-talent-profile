@@ -2,6 +2,7 @@
   "$schema": "../brand.schema.json",
   "brandName": "AI Ops Manager",
   "companyName": "AI Ops Manager株式会社",
+  "theme": "letterhead",
   "logo": {
     "file": "aom-logo.svg",
     "height": "6mm",
