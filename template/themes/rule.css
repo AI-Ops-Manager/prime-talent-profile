@@ -1,0 +1,16 @@
+/* rule: 面を使わず罫線で区切る。青は代表プロジェクトの左罫線と案内の上罫線だけ */
+body.theme-rule .sec-head { padding-bottom: 2mm; border-bottom: 0.25mm solid var(--rule); }
+body.theme-rule .sec-head::before { display: none; }
+body.theme-rule .tag.status { background: transparent; border-color: var(--ink); color: var(--ink); }
+body.theme-rule .role { color: var(--ink); font-weight: 600; }
+body.theme-rule .photo { border-radius: 0.6mm; }
+body.theme-rule .facts { background: transparent; border-radius: 0; padding: 4.5mm 0; border-top: 0.4mm solid var(--ink); border-bottom: 0.25mm solid var(--rule); gap: 4.5mm 6mm; }
+body.theme-rule .fit { background: transparent; border-radius: 0; padding: 0; gap: 0; counter-reset: fit; }
+body.theme-rule .fit .item { grid-template-columns: 9mm 1fr; padding: 2.6mm 0; border-top: 0.25mm solid var(--rule); align-items: baseline; }
+body.theme-rule .fit .item:first-child { border-top: none; padding-top: 0.5mm; }
+body.theme-rule .fit .item::before { counter-increment: fit; content: "0" counter(fit); width: auto; height: auto; background: none; margin-top: 0; font-family: var(--font-latin); font-weight: 700; font-size: 10.5pt; color: var(--muted); }
+body.theme-rule .points .item::before { background: var(--ink); }
+body.theme-rule .proj .badge { color: var(--muted); }
+body.theme-rule .cta { background: transparent; color: var(--ink); border-radius: 0; border: 0.25mm solid var(--rule); border-top: 0.8mm solid var(--accent); padding: 3.5mm 7mm; }
+body.theme-rule .cta p { color: var(--body); }
+body.theme-rule .cta .who .cn { color: var(--muted); }

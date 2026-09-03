@@ -190,6 +190,7 @@ async function main() {
       out: { type: "string", default: "out" },
       scale: { type: "string", default: "1.5" },
       deliver: { type: "string" },
+      theme: { type: "string" },
       "allow-overflow": { type: "boolean", default: false },
     },
   });
@@ -227,6 +228,18 @@ async function main() {
       throw err;
     }
     css = fs.readFileSync(cssPath, "utf8");
+
+    // テーマ（色と面の使い方）。--theme が brand.json の theme より優先。panel は基本CSSそのもの
+    if (values.theme) brand.theme = values.theme;
+    if (brand.theme && brand.theme !== "panel") {
+      const themePath = path.join(templateDir, "themes", `${brand.theme}.css`);
+      if (!fs.existsSync(themePath)) {
+        const err = new Error(`テーマ ${brand.theme} がありません（template/themes/ を確認）`);
+        err.exitCode = 1;
+        throw err;
+      }
+      css += "\n" + fs.readFileSync(themePath, "utf8");
+    }
   } catch (err) {
     console.error(`エラー: ${err.message}`);
     process.exit(err.exitCode ?? 1);

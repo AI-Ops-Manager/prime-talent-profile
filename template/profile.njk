@@ -30,7 +30,7 @@
 {{ css | safe }}
 </style>
 </head>
-<body>
+<body class="theme-{{ brand.theme }}">
 {% for sections in pages %}
 {% set pageNo = loop.index %}
 <section class="page{% if sections.length >= 5 %} dense{% endif %}" data-page="{{ pageNo }}">

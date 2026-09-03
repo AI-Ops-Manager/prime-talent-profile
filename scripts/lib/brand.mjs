@@ -175,6 +175,7 @@ export function loadBrand(file) {
   const typography = {
     webFonts: raw.typography?.webFonts ?? true,
   };
+  const theme = raw.theme ?? "panel";
 
   const logoHeight = raw.logo?.height ?? "7mm";
   const logoHtml = raw.logo ? resolveLogoHtml(raw.logo, colors, brandName, path.dirname(brandPath)) : null;
@@ -187,6 +188,7 @@ export function loadBrand(file) {
     colors,
     labels,
     typography,
+    theme,
     // テンプレートは参照しない。talent.mjs の既定値解決に使う
     defaults,
   };

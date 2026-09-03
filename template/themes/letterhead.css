@@ -1,0 +1,14 @@
+/* letterhead: 紙の上端に細い色帯。本文は黒と罫線、見出しは太い下線 */
+body.theme-letterhead .page::before { content: ""; position: absolute; left: 0; top: 0; right: 0; height: 1.6mm; background: var(--accent); }
+body.theme-letterhead .sec-head { padding-bottom: 1.8mm; border-bottom: 0.4mm solid var(--ink); }
+body.theme-letterhead .sec-head::before { display: none; }
+body.theme-letterhead .sec-head h2 { font-size: 13pt; letter-spacing: 0.08em; }
+body.theme-letterhead .role { color: var(--ink); font-weight: 600; }
+body.theme-letterhead .tag.status { background: transparent; border-color: var(--ink); color: var(--ink); }
+body.theme-letterhead .photo { border-radius: 0.6mm; }
+body.theme-letterhead .facts { background: transparent; border-radius: 0; padding: 4.5mm 0; border-top: 0.25mm solid var(--rule); border-bottom: 0.25mm solid var(--rule); gap: 4.5mm 6mm; }
+body.theme-letterhead .fit { background: var(--panel); border-radius: 0; }
+body.theme-letterhead .proj .badge { color: var(--muted); }
+body.theme-letterhead .cta { background: transparent; color: var(--ink); border-radius: 0; border-top: 0.4mm solid var(--ink); border-bottom: 0.25mm solid var(--rule); padding: 5mm 0; }
+body.theme-letterhead .cta p { color: var(--body); }
+body.theme-letterhead .cta .who .cn { color: var(--muted); }

@@ -1,0 +1,12 @@
+/* classic: 面は残すが色を抜く。青は見出しの印・代表プロジェクトの左罫線・案内の左罫線だけ */
+body.theme-classic .tag.status { background: transparent; border-color: var(--ink); color: var(--ink); }
+body.theme-classic .role { color: var(--ink); font-weight: 600; }
+body.theme-classic .photo { border-radius: 1mm; }
+body.theme-classic .facts { border-radius: 1mm; }
+body.theme-classic .fit { background: var(--panel); border-radius: 1mm; }
+body.theme-classic .fit .item::before,
+body.theme-classic .points .item::before { background: var(--ink); }
+body.theme-classic .proj .badge { color: var(--muted); }
+body.theme-classic .cta { background: var(--panel); color: var(--ink); border-radius: 1mm; border-left: 1.5mm solid var(--accent); }
+body.theme-classic .cta p { color: var(--body); }
+body.theme-classic .cta .who .cn { color: var(--muted); }

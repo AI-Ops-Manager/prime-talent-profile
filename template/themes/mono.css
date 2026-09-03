@@ -1,0 +1,13 @@
+/* mono: 黒一色。ブランド色はロゴにしか出ない */
+body.theme-mono .sec-head::before { background: var(--ink); border-radius: 0; }
+body.theme-mono .role { color: var(--ink); font-weight: 600; }
+body.theme-mono .tag { border-radius: 0; }
+body.theme-mono .tag.status { background: var(--ink); border-color: var(--ink); color: #fff; }
+body.theme-mono .photo { border-radius: 0; }
+body.theme-mono .facts { border-radius: 0; }
+body.theme-mono .fit { background: transparent; border-radius: 0; padding: 1mm 0 1mm 5mm; border-left: 0.8mm solid var(--ink); }
+body.theme-mono .fit .item::before,
+body.theme-mono .points .item::before { background: var(--ink); border-radius: 0; }
+body.theme-mono .proj.featured { border-left-color: var(--ink); }
+body.theme-mono .proj .badge { color: var(--muted); }
+body.theme-mono .cta { background: var(--ink); border-radius: 0; }

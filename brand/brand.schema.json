@@ -54,6 +54,11 @@
         "tint": { "$ref": "#/$defs/hex", "description": "アクセントの淡色面。省略時は accent と paper を混ぜて作る" }
       }
     },
+    "theme": {
+      "enum": ["panel", "classic", "rule", "mono", "letterhead"],
+      "default": "panel",
+      "description": "色と面の使い方。panel=ブランド色の面を使う／classic=面は灰色で色は印だけ／rule=面を使わず罫線／mono=黒一色／letterhead=上端の色帯と罫線。骨格・文字サイズは共通"
+    },
     "typography": {
       "type": "object",
       "additionalProperties": false,
