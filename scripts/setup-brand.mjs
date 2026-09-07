@@ -199,7 +199,7 @@ async function runInteractive(rl, base, baseLogoDir) {
   const deliverDir = deliverInput || null;
 
   const mcpCurrent = loadJsonIfExists(MCP_JSON_PATH)?.mcpServers?.["talent-hub-prime"]?.url ?? "";
-  const mcpInput = await promptWithDefault(rl, "Prime 向け MCP の URL またはテナント名（AOMから案内。空でスキップ）", mcpCurrent);
+  const mcpInput = await promptWithDefault(rl, "Prime の 設定 → MCP連携 に出ている MCPサーバーURL（空でスキップ）", mcpCurrent);
   const mcpUrl = mcpInput ? normalizeMcpUrl(mcpInput) : null;
   if (mcpInput && !mcpUrl) {
     console.log("URL の形式が読めなかったので .mcp.json は書きません（https:// から始まる URL か、テナント名だけを入れてください）");

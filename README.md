@@ -91,7 +91,7 @@ npm run render -- kk
 | `/talent-profile` | 候補1名の `talent.json` を書き、描画し、確認して PDF を仕上げる |
 
 タレントのデータは、AOM が用意する Prime 向け MCP（`search_talents` / `get_talent`）から取ります。
-`npm run setup` で「Prime 向け MCP の URL またはテナント名」を答えると `.mcp.json` に登録され、
+`npm run setup` で「Prime の 設定 → MCP連携 に出ている MCPサーバーURL」（`https://<自社>.prime.ai-ops-manager.com/settings?tab=mcp` でコピーできる）を答えると `.mcp.json` に登録され、
 あとは各自が Claude Code の `/mcp` でログインするだけです。詳しくは [docs/mcp-setup.md](docs/mcp-setup.md)。MCP を使わない場合は、AOM から受け取ったデータシートを元に Claude が `talent.json` を書きます。
 
 ## 書いてはいけないこと

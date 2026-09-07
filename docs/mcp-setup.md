@@ -9,7 +9,7 @@ Claude Code からこれに接続すると、`search_talents` と `get_talent` �
 
 接続先の URL は会社ごとに違う（会社名のサブドメインが付く）。URL は AOM から案内を受ける。
 
-いちばん簡単なのは `npm run setup` の「Prime 向け MCP の URL またはテナント名」に答えること。
+いちばん簡単なのは `npm run setup` の「Prime の 設定 → MCP連携 に出ている MCPサーバーURL」（Prime にログインし、右上のメニュー → 設定 → 「MCP連携」タブ。`https://<自社>.prime.ai-ops-manager.com/settings?tab=mcp`）に答えること。
 リポジトリ直下の `.mcp.json` に `talent-hub-prime` として登録され、同じリポジトリを開く人全員に効く（commit してよい）。
 手で登録するなら次でも同じ。
 

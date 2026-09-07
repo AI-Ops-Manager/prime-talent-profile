@@ -16,7 +16,7 @@ description: このリポジトリの発行名義（ロゴ・キーカラー・�
 - 写真を出す運用か、伏せる運用か（`defaults.hidePhoto`）
 - 参考単価の既定表示（既定は「15,000円/h〜」、注記なし）。AOM との取り決めが違うときだけ変える
 - 仕上がった PDF を置くフォルダ（既定はデスクトップ。共有ドライブにしたければそのパス。人ごとの設定で git には入らない）
-- Prime 向け MCP の URL またはテナント名（AOM から案内があれば。`.mcp.json` に登録される）
+- Prime 向け MCP の URL（Prime の 設定 → 「MCP連携」タブに出ている MCPサーバーURL。ユーザーが「テナント名」や Prime の URL だけを言ったら `https://<テナント>.prime.ai-ops-manager.com/mcp` に読み替える。`.mcp.json` に登録される）
 - 見た目のテーマは既定の `letterhead`（上端の色帯＋黒と罫線）のままでよいか。変えたいときだけ `brand.json` の `theme` を `panel` / `classic` / `rule` / `mono` に
 
 ガイドラインPDFや既存資料を渡されたら、そこから色・ロゴ・表記を拾って提案し、確認を取る。
@@ -29,7 +29,7 @@ description: このリポジトリの発行名義（ロゴ・キーカラー・�
 npm run setup -- --non-interactive --name "<ブランド名>" --company "<会社名>" --accent "#RRGGBB" --logo <ロゴのパス> --no-preview
 ```
 
-写真を伏せる運用なら `--hide-photo`、PDF の保存先を変えるなら `--deliver-dir <フォルダ>`、MCP の接続先があれば `--mcp-url <URLかテナント名>` を足す。単価の既定表示や定型文（`labels`）を変えるときは、書かれた `brand/brand.json` を直接編集する。
+写真を伏せる運用なら `--hide-photo`、PDF の保存先を変えるなら `--deliver-dir <フォルダ>`、MCP の接続先があれば `--mcp-url <MCPサーバーURL>` を足す。単価の既定表示や定型文（`labels`）を変えるときは、書かれた `brand/brand.json` を直接編集する。
 既に `brand/brand.json` がある状態で再実行すると、名義・色・ロゴだけが置き換わり、手で直した `labels` と `defaults` は残る。
 AOM 自身の名義で出すときは `npm run setup -- --preset aom` を土台にする。
 

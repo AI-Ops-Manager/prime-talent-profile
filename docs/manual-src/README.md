@@ -1,6 +1,6 @@
 # セットアップ手順書の作り方
 
-`docs/setup-manual.pdf` は `build.mjs` が作る。GitHub の画面イメージ・ターミナルの画面を HTML で描き、
+`docs/setup-manual.pdf` は `build.mjs` が作る。Claude Code のアプリ・Prime（タレント一覧と設定の MCP連携タブ）・GitHub の画面イメージを HTML で描き、
 Skitch 風の注釈（枠・番号・矢印）を重ねて A4 の PDF に組む。
 
 ```bash
